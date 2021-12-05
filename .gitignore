@@ -1,4 +1,3 @@
-bin/
 build/
 .gradle/
 .classpath
@@ -11,3 +10,5 @@ out/
 *.iws
 .vs/
 .vscode/
+*.jar
+!gradle-wrapper.jar

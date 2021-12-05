@@ -18,9 +18,17 @@ plugins {
 
 rootProject.name = "spectral"
 
-include(":util")
-include(":common")
-include(":launcher")
-include(":engine")
-include(":client")
-include(":")
+fun module(path: String) {
+    val index = path.lastIndexOf('/')
+    val name = path.substring(index + 1)
+    include(name)
+    project(":$name").projectDir = file(path)
+}
+
+module("common")
+module("util")
+module("logger")
+module("launcher")
+module("client")
+module("spectral-cpp")
+module("natives")

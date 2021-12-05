@@ -12,17 +12,3 @@
 
 *.bat text eol=crlf
 
-
-# BINARY FILES:
-#   Disable line ending normalize on checkin.
-
-*.dll binary
-*.dylib binary
-*.gif binary
-*.jar binary
-*.lib binary
-*.png binary
-*.sketch binary
-*.so binary
-*.zip binary
-*.exe binary

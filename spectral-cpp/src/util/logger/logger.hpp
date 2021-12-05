@@ -1,0 +1,5 @@
+#pragma once
+#ifndef SPECTRAL_LOGGER_HPP
+#define SPECTRAL_LOGGER_HPP
+
+#endif //SPECTRAL_LOGGER_HPP
