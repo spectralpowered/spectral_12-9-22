@@ -5,6 +5,7 @@ import com.formdev.flatlaf.extras.components.FlatButton
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinUser
 import org.spectralpowered.client.ui.natives.NativeClientCanvas
+import org.spectralpowered.client.ui.sidepanel.Sidebar
 import org.spectralpowered.common.inject
 import java.awt.BorderLayout
 import java.awt.Dimension
@@ -65,7 +66,7 @@ class SpectralFrame : JFrame("Spectral") {
         UIManager.put("TitlePane.showIcon", true)
 
         discordMenuButton.toolTipText = "Spectral Discord"
-        discordMenuButton.icon = FlatSVGIcon("images/ui/discord.svg").derive(20, 16)
+        discordMenuButton.icon = FlatSVGIcon("images/ui/discord.svg").derive(18, 16)
         discordMenuButton.buttonType = FlatButton.ButtonType.toolBarButton
         discordMenuButton.isFocusable = false
         menuBar.add(Box.createGlue())
