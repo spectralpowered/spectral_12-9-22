@@ -5,6 +5,7 @@ import java.awt.*
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.Box
+import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.SwingUtilities
 
@@ -201,6 +202,7 @@ open class SidebarComponentMover : MouseAdapter {
         val parent = destination!!.parent as Container
         for(i in 0 until parent.componentCount) {
             val c = parent.getComponent(i)
+            if(c !is JButton) continue
             val r = c.bounds
             val height = r.height / 2
             PREV_AREA.setBounds(r.x, r.y, r.width, height)
@@ -262,12 +264,22 @@ open class SidebarComponentMover : MouseAdapter {
         }
 
         val parent = destination!!.parent as Container
+
+        if(parent.bounds.contains(destination!!.location)) {
+            swapComponentLocation(parent, destination!!, parent.componentCount)
+        } else {
+            swapComponentLocation(parent, destination!!, index)
+        }
+
         parent.revalidate()
         index = -1
     }
 
     private fun swapComponentLocation(parent: Container, component: Component,  idx: Int) {
-        parent.setComponentZOrder(component, idx)
+        if(idx != index) {
+            parent.setComponentZOrder(component, idx)
+            index = idx
+        }
         parent.repaint()
     }
 }
