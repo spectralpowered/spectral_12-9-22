@@ -1,10 +1,8 @@
 package org.spectralpowered.client.ui.sidepanel
 
-import org.spectralpowered.logger.Logger
 import java.awt.*
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import javax.swing.Box
 import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.SwingUtilities

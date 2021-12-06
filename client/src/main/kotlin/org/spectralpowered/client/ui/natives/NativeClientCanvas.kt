@@ -4,7 +4,7 @@ import com.sun.jna.Library
 import com.sun.jna.Native
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
-import com.sun.jna.platform.win32.WinUser.*
+import com.sun.jna.platform.win32.WinUser.GA_PARENT
 import java.awt.Canvas
 import java.awt.Graphics
 import java.util.concurrent.atomic.AtomicBoolean
@@ -38,7 +38,7 @@ class NativeClientCanvas(private val osrsHandle: WinDef.HWND) : Canvas() {
         fun resizeWindow(targetWindow: WinDef.HWND, parentWindow: WinDef.HWND)
 
         companion object {
-            val INSTANCE by lazy { Native.load("spectral", WindowEmbed::class.java) }
+            val INSTANCE = Native.load("spectral", WindowEmbed::class.java)
         }
     }
 }

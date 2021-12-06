@@ -4,11 +4,9 @@ import com.sun.jna.platform.WindowUtils
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.ptr.IntByReference
-import org.spectralpowered.client.Spectral
 import org.spectralpowered.client.ui.theme.SpectralTheme
 import org.spectralpowered.logger.Logger
 import org.spectralpowered.util.retry
-import java.awt.BorderLayout
 import java.lang.management.ManagementFactory
 import javax.swing.JDialog
 import javax.swing.JFrame
@@ -59,16 +57,12 @@ class SpectralUI {
                 Logger.error("Failed to detect Old School RuneScape client window.")
             }
 
-            var found: WinDef.HWND? = null
-            WindowUtils.getAllWindows(true).forEach { window ->
+            osrsWindow = WindowUtils.getAllWindows(true).first {
                 val pid = IntByReference()
-                User32.INSTANCE.GetWindowThreadProcessId(window.hwnd, pid)
-                if(window.title == Spectral.OSRS_STEAM_WINDOW_TITLE && pid.value == parentPID) {
-                    found = window.hwnd
-                }
-            }
-
-            osrsWindow = found!!
+                User32.INSTANCE.GetWindowThreadProcessId(it.hwnd, pid)
+                it.title == "Old School RuneScape" &&
+                        pid.value == ManagementFactory.getRuntimeMXBean().name.split("@").first().toInt()
+            }.hwnd
         }
 
         Logger.info("Found the Old School RuneScape client window with processID: $parentPID.")

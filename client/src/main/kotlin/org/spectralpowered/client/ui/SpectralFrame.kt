@@ -1,16 +1,12 @@
 package org.spectralpowered.client.ui
 
-import com.formdev.flatlaf.extras.FlatSVGIcon
-import com.formdev.flatlaf.extras.components.FlatButton
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinUser
 import org.spectralpowered.client.ui.natives.NativeClientCanvas
-import org.spectralpowered.client.ui.sidepanel.Sidebar
 import org.spectralpowered.common.inject
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.Rectangle
-import javax.swing.Box
 import javax.swing.ImageIcon
 import javax.swing.JFrame
 import javax.swing.UIManager
@@ -21,8 +17,6 @@ class SpectralFrame : JFrame("Spectral") {
 
     private lateinit var clientCanvas: NativeClientCanvas
     private val menuBar = MenuBar()
-    private val discordMenuButton = FlatButton()
-    private lateinit var sidebar: Sidebar
 
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
@@ -38,8 +32,6 @@ class SpectralFrame : JFrame("Spectral") {
 
         clientCanvas = NativeClientCanvas(spectralUI.osrsWindow)
         add(clientCanvas, BorderLayout.CENTER)
-
-        this.initSideBar()
     }
 
     fun close() {
@@ -64,19 +56,7 @@ class SpectralFrame : JFrame("Spectral") {
     private fun initMenuBar() {
         rootPane.putClientProperty("JRootPane.titleBarShowIcon", true)
         UIManager.put("TitlePane.showIcon", true)
-
-        discordMenuButton.toolTipText = "Spectral Discord"
-        discordMenuButton.icon = FlatSVGIcon("images/ui/discord.svg").derive(18, 16)
-        discordMenuButton.buttonType = FlatButton.ButtonType.toolBarButton
-        discordMenuButton.isFocusable = false
-        menuBar.add(Box.createGlue())
-        menuBar.add(discordMenuButton)
         jMenuBar = menuBar
-    }
-
-    private fun initSideBar() {
-        sidebar = Sidebar()
-        add(sidebar, BorderLayout.EAST)
     }
 
     companion object {

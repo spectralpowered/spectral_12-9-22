@@ -6,7 +6,9 @@ import java.awt.*
 import java.awt.geom.AffineTransform
 import java.awt.image.BufferedImage
 import java.lang.Math.toRadians
-import javax.swing.*
+import javax.swing.Box
+import javax.swing.JButton
+import javax.swing.JToolBar
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.floor
