@@ -8,7 +8,6 @@ import com.sun.jna.platform.win32.WinUser.*
 import java.awt.Canvas
 import java.awt.Graphics
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.swing.SwingUtilities
 
 class NativeClientCanvas(private val osrsHandle: WinDef.HWND) : Canvas() {
     private var parentHandle: WinDef.HWND? = null

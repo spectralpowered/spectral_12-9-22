@@ -4,10 +4,7 @@ WNDPROC defWindowProc;
 
 LRESULT EmbeddedWindowProc(HWND hwnd, UINT uMsg, WPARAM wparam, LPARAM lparam) {
     if(uMsg == WM_NCCALCSIZE) return false;
-    else {
-        std::cout << "Msg: " << uMsg << std::endl;
-        return CallWindowProc(defWindowProc, hwnd, uMsg, wparam, lparam);
-    }
+    else return CallWindowProc(defWindowProc, hwnd, uMsg, wparam, lparam);
 }
 
 void WindowEmbed::embedWindow(HWND targetWindow, HWND parentWindow) {

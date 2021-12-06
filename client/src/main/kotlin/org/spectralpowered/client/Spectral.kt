@@ -22,6 +22,7 @@ class Spectral {
 
     fun stop() {
         Logger.info("Stopping Spectral client.")
+        spectralUI.close()
         exitProcess(0)
     }
 

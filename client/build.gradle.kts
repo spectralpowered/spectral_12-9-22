@@ -1,17 +1,11 @@
-plugins {
-    id("org.openjfx.javafxplugin") version "0.0.10"
-}
-
 dependencies {
     implementation(project(":common"))
     implementation(project(":natives"))
     implementation("com.formdev:flatlaf:_")
     implementation("com.formdev:flatlaf-intellij-themes:_")
-}
+    implementation("com.formdev:flatlaf-extras:_")
+    implementation("com.formdev:svgSalamander:_")
 
-javafx {
-    version = "16"
-    modules = listOf("javafx.base", "javafx.controls", "javafx.graphics", "javafx.swing")
 }
 
 tasks {

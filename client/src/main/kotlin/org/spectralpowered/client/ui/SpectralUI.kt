@@ -8,13 +8,14 @@ import org.spectralpowered.client.Spectral
 import org.spectralpowered.client.ui.theme.SpectralTheme
 import org.spectralpowered.logger.Logger
 import org.spectralpowered.util.retry
+import java.awt.BorderLayout
 import java.lang.management.ManagementFactory
 import javax.swing.JDialog
 import javax.swing.JFrame
 
 class SpectralUI {
 
-    private lateinit var frame: SpectralFrame
+    lateinit var frame: SpectralFrame private set
 
     /**
      * The window handle of the OSRS client.
