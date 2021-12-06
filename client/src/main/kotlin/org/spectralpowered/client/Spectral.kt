@@ -1,18 +1,23 @@
 package org.spectralpowered.client
 
 import org.koin.core.context.startKoin
+import org.spectralpowered.client.ui.SpectralUI
 import org.spectralpowered.common.get
+import org.spectralpowered.common.inject
 import org.spectralpowered.logger.Logger
-import java.lang.management.ManagementFactory
 import kotlin.system.exitProcess
 
 class Spectral {
 
-    private var processID: Int = -1
+    private val spectralUI: SpectralUI by inject()
 
     fun start() {
         Logger.info("Starting Spectral client.")
 
+        /*
+         * Start the Spectral UI.
+         */
+        spectralUI.open()
     }
 
     fun stop() {
@@ -21,6 +26,10 @@ class Spectral {
     }
 
     companion object {
+
+        const val OSRS_STEAM_APPID = 1343370
+        const val OSRS_STEAM_WINDOW_TITLE = "Old School RuneScape"
+        const val OSRS_PROCESS_NAME = "osclient.exe"
 
         private val DI_MODULES = listOf(
             SPECTRAL_MODULE
@@ -34,7 +43,6 @@ class Spectral {
              * Start the Spectral client from the Singleton Spectral instance.
              */
             val spectral = get<Spectral>()
-            spectral.processID = ManagementFactory.getRuntimeMXBean().name.split("@").first().toInt()
 
             try {
                 spectral.start()

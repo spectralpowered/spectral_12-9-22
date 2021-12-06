@@ -16,10 +16,6 @@ application {
 }
 
 tasks {
-    named<JavaExec>("run") {
-        group = "spectral"
-    }
-
     register<Jar>("fullJar") {
         group = "build"
         archiveBaseName.set("spectral")
