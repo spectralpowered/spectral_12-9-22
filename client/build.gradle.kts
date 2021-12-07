@@ -1,10 +1,6 @@
 dependencies {
     implementation(project(":common"))
     implementation(project(":natives"))
-    implementation("com.formdev:flatlaf:_")
-    implementation("com.formdev:flatlaf-intellij-themes:_")
-    implementation("com.formdev:flatlaf-extras:_")
-    implementation("com.formdev:svgSalamander:_")
 
 }
 
