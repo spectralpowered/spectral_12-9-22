@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.6.0"
+    kotlin("multiplatform") version "1.6.0"
 }
 
 group = "org.spectralpowered"
@@ -17,14 +17,10 @@ println()
 println("Spectral Version: $version")
 println("Gradle Version: ${gradle.gradleVersion}")
 println("Java Version: ${System.getProperty("java.version")}")
-println("Kotlin Version: ${kotlin.coreLibrariesVersion}")
-println()
 println("-----------------------------------------------------------------------------------")
 println()
 
 allprojects {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
-
     group = rootProject.group
     version = rootProject.version
 
@@ -33,24 +29,13 @@ allprojects {
         mavenCentral()
         maven(url = "https://jitpack.io/")
     }
+}
 
-    dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib:_")
-        implementation("org.jetbrains.kotlin:kotlin-reflect:_")
-    }
+tasks.wrapper {
+    gradleVersion = "7.2"
+    distributionType = Wrapper.DistributionType.ALL
+}
 
-    tasks {
-        val javaVersion = JavaVersion.VERSION_16.toString()
-        compileJava {
-            targetCompatibility = javaVersion
-            sourceCompatibility = javaVersion
-        }
-        compileKotlin {
-            kotlinOptions {
-                jvmTarget = javaVersion
-                targetCompatibility = javaVersion
-                sourceCompatibility = javaVersion
-            }
-        }
-    }
+kotlin {
+    jvm()
 }
