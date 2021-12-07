@@ -1,24 +1,20 @@
 plugins {
-    kotlin("multiplatform") version "1.6.0"
+    kotlin("jvm") version "1.6.0"
 }
 
 group = "org.spectralpowered"
 version = "1.0.0"
 
 println("------------------------------------------------------------------------------------")
-println()
-println(" __                 _             _     ___                               _ ")
-println("/ _\\_ __   ___  ___| |_ _ __ __ _| |   / _ \\_____      _____ _ __ ___  __| |")
-println("\\ \\| '_ \\ / _ \\/ __| __| '__/ _` | |  / /_)/ _ \\ \\ /\\ / / _ \\ '__/ _ \\/ _` |")
-println("_\\ \\ |_) |  __/ (__| |_| | | (_| | | / ___/ (_) \\ V  V /  __/ | |  __/ (_| |")
-println("\\__/ .__/ \\___|\\___|\\__|_|  \\__,_|_| \\/    \\___/ \\_/\\_/ \\___|_|  \\___|\\__,_|")
-println("   |_|                                                                      ")
-println()
 println("Spectral Version: $version")
 println("Gradle Version: ${gradle.gradleVersion}")
 println("Java Version: ${System.getProperty("java.version")}")
 println("-----------------------------------------------------------------------------------")
 println()
+
+tasks.wrapper {
+    gradleVersion = "7.2"
+}
 
 allprojects {
     group = rootProject.group
@@ -31,11 +27,27 @@ allprojects {
     }
 }
 
-tasks.wrapper {
-    gradleVersion = "7.2"
-    distributionType = Wrapper.DistributionType.ALL
-}
+configure(allprojects.filter { it.name !in listOf("spectral-cpp") }) {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
 
-kotlin {
-    jvm()
+    dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib:_")
+    }
+
+    tasks {
+        val javaVersion = JavaVersion.VERSION_11.toString()
+
+        compileKotlin {
+            kotlinOptions {
+                jvmTarget = javaVersion
+                sourceCompatibility = javaVersion
+                targetCompatibility = javaVersion
+            }
+        }
+
+        compileJava {
+            sourceCompatibility = javaVersion
+            targetCompatibility = javaVersion
+        }
+    }
 }
