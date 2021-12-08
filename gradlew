@@ -122,16 +122,16 @@ BUILD_DIR="$APP_HOME/build"
 
 if [ "$darwin" = "true" ]; then
     JVM_TEMP_FILE=$BUILD_DIR/jvm-macosx-x64.tar.gz
-    JVM_URL=https://github.com/AdoptOpenJDK/openjdk16-binaries/releases/download/jdk-16.0.1%2B9/OpenJDK16U-jre_x64_mac_hotspot_16.0.1_9.tar.gz
-    JVM_TARGET_DIR=$BUILD_DIR/gradle-jvm/OpenJDK16U-jre_x64_mac_hotspot_16.0.1_9-0e29f9
+    JVM_URL=https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jre_x64_mac_hotspot_11.0.13_8.tar.gz
+    JVM_TARGET_DIR=$BUILD_DIR/gradle-jvm/OpenJDK11U-jre_x64_mac_hotspot_11.0.13_8-fb218c
 elif [ "$cygwin" = "true" ] || [ "$msys" = "true" ]; then
     JVM_TEMP_FILE=$BUILD_DIR/jvm-windows-x64.zip
-    JVM_URL=https://github.com/AdoptOpenJDK/openjdk16-binaries/releases/download/jdk-16.0.1%2B9/OpenJDK16U-jre_x64_windows_hotspot_16.0.1_9.zip
-    JVM_TARGET_DIR=$BUILD_DIR/OpenJDK16U-jre_x64_windows_hotspot_16.0.1_9-1c9a84
+    JVM_URL=https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8.zip
+    JVM_TARGET_DIR=$BUILD_DIR/OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8-391e81
 else
     JVM_TEMP_FILE=$BUILD_DIR/jvm-linux-x64.tar.gz
-    JVM_URL=https://github.com/AdoptOpenJDK/openjdk16-binaries/releases/download/jdk-16.0.1%2B9/OpenJDK16U-jre_x64_linux_hotspot_16.0.1_9.tar.gz
-    JVM_TARGET_DIR=$BUILD_DIR/gradle-jvm/OpenJDK16U-jre_x64_linux_hotspot_16.0.1_9-b2799c
+    JVM_URL=https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jre_x64_linux_hotspot_11.0.13_8.tar.gz
+    JVM_TARGET_DIR=$BUILD_DIR/gradle-jvm/OpenJDK11U-jre_x64_linux_hotspot_11.0.13_8-6e36c4
 fi
 
 set -e

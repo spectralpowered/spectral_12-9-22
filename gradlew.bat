@@ -40,10 +40,10 @@ set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
 setlocal
 
 set BUILD_DIR=%APP_HOME%build\
-set JVM_TARGET_DIR=%BUILD_DIR%gradle-jvm\OpenJDK16U-jre_x64_windows_hotspot_16.0.1_9-1c9a84\
+set JVM_TARGET_DIR=%BUILD_DIR%gradle-jvm\OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8-391e81\
 
 set JVM_TEMP_FILE=jvm-windows-x64.zip
-set JVM_URL=https://github.com/AdoptOpenJDK/openjdk16-binaries/releases/download/jdk-16.0.1%%2B9/OpenJDK16U-jre_x64_windows_hotspot_16.0.1_9.zip
+set JVM_URL=https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%%2B8/OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8.zip
 
 set POWERSHELL=%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe
 

@@ -12,9 +12,7 @@ println("Java Version: ${System.getProperty("java.version")}")
 println("-----------------------------------------------------------------------------------")
 println()
 
-tasks.wrapper {
-    gradleVersion = "7.2"
-}
+apply(plugin = "org.spectralpowered.gradle.jvm-wrapper")
 
 allprojects {
     group = rootProject.group
@@ -27,7 +25,7 @@ allprojects {
     }
 }
 
-configure(allprojects.filter { it.name !in listOf("spectral-cpp", "spectral-logger") }) {
+configure(allprojects.filter { it.name !in listOf("spectral-cpp") }) {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     dependencies {
