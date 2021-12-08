@@ -27,7 +27,7 @@ allprojects {
     }
 }
 
-configure(allprojects.filter { it.name !in listOf("spectral-cpp") }) {
+configure(allprojects.filter { it.name !in listOf("spectral-cpp", "spectral-logger") }) {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     dependencies {
