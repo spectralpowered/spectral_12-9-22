@@ -12,8 +12,6 @@ println("Java Version: ${System.getProperty("java.version")}")
 println("-----------------------------------------------------------------------------------")
 println()
 
-apply(plugin = "org.spectralpowered.gradle.jvm-wrapper")
-
 allprojects {
     group = rootProject.group
     version = rootProject.version
@@ -32,6 +30,7 @@ configure(allprojects.filter { it.name !in listOf("spectral-cpp") }) {
         implementation("org.jetbrains.kotlin:kotlin-stdlib:_")
     }
 
+
     tasks {
         val javaVersion = JavaVersion.VERSION_11.toString()
 
@@ -48,4 +47,9 @@ configure(allprojects.filter { it.name !in listOf("spectral-cpp") }) {
             targetCompatibility = javaVersion
         }
     }
+}
+
+tasks.wrapper {
+    gradleVersion = "7.2"
+    distributionType = Wrapper.DistributionType.ALL
 }

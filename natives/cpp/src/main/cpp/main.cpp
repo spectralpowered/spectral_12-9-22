@@ -1,6 +1,5 @@
 #include <windows.h>
-#include <iostream>
-#include "util/jni/jnipp.h"
+#include <jni.h>
 
 using namespace std;
 
@@ -13,10 +12,7 @@ void initConsole()
 }
 
 void initSpectralJVM() {
-    jni::Vm createSpectralJvm;
-    jni::Class cls = jni::Class("org/spectralpowered/launcher/Launcher");
-    jni::method_t method = cls.getStaticMethod("start", "()V");
-    cls.call<void>(method);
+
 }
 
 void init()

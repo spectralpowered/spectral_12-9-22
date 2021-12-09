@@ -1,8 +1,9 @@
 #ifdef _WIN32
-# define WIN32_LEAN_AND_MEAN 1
+#define WIN32_LEAN_AND_MEAN 1
 
 // Windows Dependencies
-# include <windows.h>
+#pragma comment(lib, "advapi32")
+#include <windows.h>
 #else
 // UNIX Dependencies
 # include <dlfcn.h>

@@ -1034,4 +1034,3 @@ namespace jni
 }
 
 #endif // _JNIPP_H_
-
