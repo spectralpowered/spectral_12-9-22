@@ -39,6 +39,7 @@ object BinaryFileUpdater {
          */
         checkForUpdates("spectral.dll")
         checkForUpdates("spectral.jar")
+        checkForUpdates("PolyHook_2.dll")
 
         Logger.info("All Spectral binary files are up-to-date!")
         SplashScreen.progressText = "All files are up-to-date."

@@ -65,6 +65,7 @@ object Launcher {
         /*
          * Inject the Spectral native dependency DLLs first and then inject 'spectral.dll' last.
          */
+        Injector.injectDLL("osclient.exe", SPECTRAL_BIN_DIR.resolve("PolyHook_2.dll"))
         Injector.injectDLL("osclient.exe", SPECTRAL_BIN_DIR.resolve("spectral.dll"))
 
         Logger.info("Successfully injected all Spectral DLLs.")

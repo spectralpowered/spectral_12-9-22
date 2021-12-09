@@ -12,3 +12,5 @@ out/
 .vscode/
 *.jar
 !gradle-wrapper.jar
+launcher/src/main/resources/bin/spectral.dll
+launcher/src/main/resources/bin/spectral.jar

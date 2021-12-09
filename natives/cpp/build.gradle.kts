@@ -71,6 +71,6 @@ tasks.register<Copy>("copyDll") {
         }
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from(tasks.getByName("linkRelease"))
+    from(project.buildDir.resolve("lib/main/release/spectral.dll"))
     into(project(":spectral-launcher").projectDir.resolve("src/main/resources/bin/"))
 }
