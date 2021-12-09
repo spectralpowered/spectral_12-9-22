@@ -1,5 +1,7 @@
+#pragma comment(lib, "shell32.lib")
 #include <windows.h>
-#include <jni.h>
+#include <ShlObj.h>
+#include "util/jni/jnipp.h"
 
 using namespace std;
 
@@ -12,7 +14,14 @@ void initConsole()
 }
 
 void initSpectralJVM() {
+    char path[MAX_PATH];
+    SHGetFolderPath(nullptr, CSIDL_PROFILE, nullptr, 0, path);
+    string spectralDir = string(path) + string(R"(\.spectral\)");
 
+    jni::Vm createSpectraJVM(spectralDir.c_str());
+    jni::Class cls = jni::Class("org/spectralpowered/natives/jvm/Spectral");
+    jni::method_t method = cls.getStaticMethod("start", "()V");
+    cls.call<void>(method);
 }
 
 void init()

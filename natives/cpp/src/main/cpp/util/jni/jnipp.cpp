@@ -58,7 +58,7 @@ namespace jni
         if (vm == nullptr)
             throw InitializationException("JNI not initialized");
 
-        if (vm->GetEnv((void**)&_env, JNI_VERSION_1_2) != JNI_OK)
+        if (vm->GetEnv((void**)&_env, JNI_VERSION_1_8) != JNI_OK)
         {
 #ifdef __ANDROID__
             if (vm->AttachCurrentThread(&_env, nullptr) != 0)
@@ -1353,6 +1353,10 @@ namespace jni
         bool expected = false;
 
         std::string path = path_ ? path_ : detectJvmPath();
+        if(path_ != nullptr) {
+            std::string jvmPath = std::string(path_) + std::string(R"(jvm\bin\client\jvm.dll)");
+            path = jvmPath;
+        }
 
         if (path.length() == 0)
             throw InitializationException("Could not locate Java Virtual Machine");
@@ -1362,8 +1366,17 @@ namespace jni
         if (javaVm == nullptr)
         {
             JNIEnv* env;
-            JavaVMInitArgs args = {};
-            args.version = JNI_VERSION_1_2;
+            JavaVMInitArgs args;
+            
+            std::string jvmArgs = std::string("-Djava.class.path=") + std::string(path_) + std::string(R"(bin\spectral.jar)");
+            
+            auto* options = new JavaVMOption[1];
+            options->optionString = (char*)jvmArgs.c_str();
+
+            args.version = JNI_VERSION_1_8;
+            args.nOptions = 1;
+            args.options = options;
+            args.ignoreUnrecognized = false;
 
 #ifdef _WIN32
 

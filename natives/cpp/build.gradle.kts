@@ -65,10 +65,9 @@ idea {
 }
 
 tasks.register<Copy>("copyDll") {
+    dependsOn(tasks.getByName("linkRelease"))
     doFirst {
-        project(":spectral-launcher").projectDir.resolve("src/main/resources/bin/spectral.dll").also {
-            if(it.exists()) it.deleteRecursively()
-        }
+        project(":spectral-launcher").projectDir.resolve("src/main/resources/bin/spectral.dll").deleteRecursively()
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from(project.buildDir.resolve("lib/main/release/spectral.dll"))
