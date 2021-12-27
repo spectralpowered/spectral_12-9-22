@@ -15,27 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.launcher.splashscreen
+package org.spectralpowered.client
 
-import javafx.application.Platform
-import org.tinylog.kotlin.Logger
-import tornadofx.FX
-import tornadofx.launch
+import org.koin.dsl.module
+import org.spectralpowered.client.ui.SpectralUI
 
-object SplashScreen {
-
-    private val view by lazy { FX.find<SplashScreenView>() }
-
-    fun open() {
-        Logger.info("Opening Spectral splashscreen.")
-        launch<SplashScreenApp>()
-    }
-
-    var progress: Double
-        get() = view.progress.get()
-        set(value) = Platform.runLater { view.progress.set(value) }
-
-    var progressText: String
-        get() = view.progressText.get()
-        set(value) = Platform.runLater { view.progressText.set(value) }
+val CLIENT_MODULE = module {
+    single { Spectral() }
+    single { SpectralUI() }
 }

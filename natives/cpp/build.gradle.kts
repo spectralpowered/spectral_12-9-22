@@ -14,15 +14,6 @@ configurations.matching { c -> listOf("cppCompile", "nativeLink", "nativeRuntime
 
 val jniHeaderDirectory = layout.buildDirectory.dir("jniHeaders")
 
-tasks.compileJava {
-    sourceCompatibility = rootProject.tasks.compileJava.get().sourceCompatibility
-    targetCompatibility = rootProject.tasks.compileJava.get().targetCompatibility
-    outputs.dir(jniHeaderDirectory)
-    options.compilerArgumentProviders.add(CommandLineArgumentProvider { listOf(
-        "-h", jniHeaderDirectory.get().asFile.canonicalPath
-    ) })
-}
-
 library {
     baseName.set("spectral")
     source.from("src/main/cpp")
@@ -34,7 +25,8 @@ library {
         compileTask.get().compilerArgs.addAll(compileTask.get().toolChain.map { listOf(
             "/std:c++17",
             "/MD",
-            "/MDd"
+            "/MDd",
+            "/EHsc"
         ) })
         compileTask.get().compilerArgs.addAll(listOf(
             "/I${jniHeaderDirectory.get().asFile.canonicalPath}",
@@ -45,6 +37,9 @@ library {
         linkTask.get().linkerArgs.addAll(listOf(
             "/LIBPATH:src/main/lib",
             "/LIBPATH:${Jvm.current().javaHome.canonicalPath}/lib"
+        ))
+        linkTask.get().libs.from.addAll(listOf(
+            "src/main/lib/PolyHook_2.lib"
         ))
     }
 }
@@ -65,11 +60,20 @@ idea {
 }
 
 tasks.register<Copy>("copyDll") {
-    dependsOn(tasks.getByName("linkRelease"))
     doFirst {
         project(":spectral-launcher").projectDir.resolve("src/main/resources/bin/spectral.dll").deleteRecursively()
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from(project.buildDir.resolve("lib/main/release/spectral.dll"))
     into(project(":spectral-launcher").projectDir.resolve("src/main/resources/bin/"))
+}
+
+tasks.compileJava {
+    finalizedBy(tasks.getByName("copyDll"))
+    sourceCompatibility = rootProject.tasks.compileJava.get().sourceCompatibility
+    targetCompatibility = rootProject.tasks.compileJava.get().targetCompatibility
+    outputs.dir(jniHeaderDirectory)
+    options.compilerArgumentProviders.add(CommandLineArgumentProvider { listOf(
+        "-h", jniHeaderDirectory.get().asFile.canonicalPath
+    ) })
 }

@@ -24,7 +24,7 @@ import javafx.geometry.Pos
 import javafx.scene.image.Image
 import javafx.scene.text.Font
 import org.spectralpowered.launcher.Launcher
-import org.spectralpowered.logger.Logger
+import org.tinylog.kotlin.Logger
 import tornadofx.*
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess

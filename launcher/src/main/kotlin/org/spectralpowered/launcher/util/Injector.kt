@@ -23,7 +23,7 @@ import com.sun.jna.platform.win32.*
 import com.sun.jna.platform.win32.Tlhelp32.TH32CS_SNAPPROCESS
 import com.sun.jna.ptr.IntByReference
 import org.spectralpowered.launcher.splashscreen.SplashScreen
-import org.spectralpowered.logger.Logger
+import org.tinylog.kotlin.Logger
 import java.io.File
 import java.nio.ByteBuffer
 

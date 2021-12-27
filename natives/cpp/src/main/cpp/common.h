@@ -7,4 +7,6 @@
 #include <string>
 #include "util/util.h"
 
+#define JVM_EXPORT extern "C" __declspec(dllexport)
+
 #endif //SPECTRAL_COMMON_H

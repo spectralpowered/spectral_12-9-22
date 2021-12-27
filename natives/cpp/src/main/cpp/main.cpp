@@ -19,10 +19,12 @@ void initSpectralJVM() {
     string spectralDir = string(path) + string(R"(\.spectral\)");
 
     jni::Vm createSpectraJVM(spectralDir.c_str());
-    jni::Class cls = jni::Class("org/spectralpowered/natives/jvm/Spectral");
-    jni::method_t method = cls.getStaticMethod("start", "()V");
+    jni::Class cls = jni::Class("org/spectralpowered/client/Spectral");
+    jni::method_t method = cls.getStaticMethod("init", "()V");
     cls.call<void>(method);
 }
+
+
 
 void init()
 {

@@ -17,15 +17,7 @@
 
 package org.spectralpowered.natives.jvm
 
-import org.spectralpowered.logger.Logger
+object SpectralJVM {
 
-object Spectral {
 
-    /**
-     * The entrypoint from the native CPP thats injected into client process.
-     */
-    @JvmStatic
-    fun start() {
-        Logger.info("Started Spectral JVM.")
-    }
 }

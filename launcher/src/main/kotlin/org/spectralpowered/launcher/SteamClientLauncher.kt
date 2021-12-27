@@ -18,7 +18,7 @@
 package org.spectralpowered.launcher
 
 import org.spectralpowered.launcher.splashscreen.SplashScreen
-import org.spectralpowered.logger.Logger
+import org.tinylog.kotlin.Logger
 import java.awt.Desktop
 import java.io.InputStreamReader
 import java.net.URI
@@ -34,12 +34,6 @@ object SteamClientLauncher {
         private set
 
     fun run() {
-        /*
-         * Kill any already running Steam client processes otherwise Spectral may inject
-         * into an already running process of the game.
-         */
-        Runtime.getRuntime().exec("taskkill /F /IM $OSRS_STEAM_PROCESS_NAME /T").waitFor()
-
         Logger.info("Launching Old School RuneScape Steam client process.")
         SplashScreen.progress = 0.65
         SplashScreen.progressText = "Launching Old School RuneScape Steam client."

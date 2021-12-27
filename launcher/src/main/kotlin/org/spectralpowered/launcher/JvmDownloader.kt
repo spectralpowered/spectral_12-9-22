@@ -20,7 +20,7 @@ package org.spectralpowered.launcher
 import org.spectralpowered.common.SPECTRAL_ADOPTJDK_11_JRE_URL
 import org.spectralpowered.common.SPECTRAL_JVM_DIR
 import org.spectralpowered.launcher.splashscreen.SplashScreen
-import org.spectralpowered.logger.Logger
+import org.tinylog.kotlin.Logger
 import java.io.FileOutputStream
 import java.net.URL
 import java.util.zip.ZipFile

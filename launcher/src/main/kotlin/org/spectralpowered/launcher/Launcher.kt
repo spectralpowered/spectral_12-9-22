@@ -21,7 +21,7 @@ import org.spectralpowered.common.SPECTRAL_BIN_DIR
 import org.spectralpowered.common.allSpectralDirs
 import org.spectralpowered.launcher.splashscreen.SplashScreen
 import org.spectralpowered.launcher.util.Injector
-import org.spectralpowered.logger.Logger
+import org.tinylog.kotlin.Logger
 
 object Launcher {
 
@@ -32,6 +32,12 @@ object Launcher {
 
     fun launch() {
         Logger.info("Preparing to launch Spectral.")
+
+        /*
+         * Kill any already running Steam client processes otherwise Spectral may inject
+         * into an already running process of the game.
+         */
+        Runtime.getRuntime().exec("taskkill /F /IM osclient.exe /T").waitFor()
 
         this.checkDirs()
         JvmDownloader.run()

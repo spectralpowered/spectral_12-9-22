@@ -19,7 +19,7 @@ package org.spectralpowered.launcher
 
 import org.spectralpowered.common.SPECTRAL_BIN_DIR
 import org.spectralpowered.launcher.splashscreen.SplashScreen
-import org.spectralpowered.logger.Logger
+import org.tinylog.kotlin.Logger
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream

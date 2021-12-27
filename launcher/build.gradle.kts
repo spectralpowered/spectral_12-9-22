@@ -4,8 +4,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":spectral-logger"))
     implementation(project(":spectral-common"))
+    implementation("org.tinylog:tinylog-api-kotlin:_")
+    implementation("org.tinylog:tinylog-impl:_")
     implementation("org.jetbrains.kotlinx:kotlinx-cli:_")
     implementation("no.tornado:tornadofx:_")
     implementation("net.java.dev.jna:jna:_")
@@ -21,7 +22,7 @@ application {
     mainClass.set("org.spectralpowered.launcher.Launcher")
 }
 
-tasks.compileKotlin {
-    dependsOn(project(":spectral-cpp").tasks.getByName("copyDll"))
-    dependsOn(project(":spectral-jvm").tasks.getByName("copyJar"))
+tasks.compileJava {
+    dependsOn(project(":spectral-client").tasks.getByName("copyFullJar"))
+    dependsOn(project(":spectral-cpp").tasks.build)
 }
