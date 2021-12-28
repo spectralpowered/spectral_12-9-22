@@ -25,6 +25,8 @@ import org.spectralpowered.api.API_MODULE
 import org.spectralpowered.client.ui.SpectralUI
 import org.spectralpowered.common.get
 import org.spectralpowered.common.inject
+import org.spectralpowered.natives.jvm.JVM_NATIVES_MODULE
+import org.spectralpowered.natives.jvm.SpectralNatives
 import org.spectralpowered.plugin.PLUGIN_MODULE
 import org.spectralpowered.plugin.PluginManager
 import org.tinylog.kotlin.Logger
@@ -45,6 +47,11 @@ class Spectral {
 
         this.waitForClientWindow()
         ui.open()
+
+        /*
+         * Attach the JVM to the native client process's memory space.
+         */
+        SpectralNatives.attachProcess(processId)
 
         /*
          * Load all Spectral client plugins.
@@ -80,7 +87,8 @@ class Spectral {
         private val DI_MODULES = listOf(
             CLIENT_MODULE,
             API_MODULE,
-            PLUGIN_MODULE
+            PLUGIN_MODULE,
+            JVM_NATIVES_MODULE
         )
 
         @JvmStatic

@@ -15,9 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.jvm
+package org.spectralpowered.common
 
-object SpectralJVM {
+import kotlin.reflect.KMutableProperty0
+import kotlin.reflect.KProperty
 
-
+@Suppress("ClassName")
+class bind<T>(private val delegate: KMutableProperty0<T>) {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T = delegate.get()
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) { delegate.set(value) }
 }

@@ -14,7 +14,7 @@ void NativeCanvas::resizeWindow(HWND targetHwnd, HWND parentHwnd) {
     int width = info.rcClient.right - info.rcClient.left;
     int height = info.rcClient.bottom - info.rcClient.top;
 
-    MoveWindow(targetHwnd, 0, 0, width, height, true);
+    MoveWindow(targetHwnd, 0, 0, width, height, false);
 
     /*
      * Update the window without passing the WM_NCCALCSIZE message to the parent window to
@@ -28,6 +28,7 @@ void NativeCanvas::embedWindow(HWND targetHwnd, HWND parentHwnd) {
     SetWindowLong(targetHwnd, GWL_STYLE, WS_VISIBLE);
     SetParent(targetHwnd, parentHwnd);
     ShowWindow(targetHwnd, SW_SHOW);
+
     defWindowProc = (WNDPROC) GetWindowLongPtr(targetHwnd, GWLP_WNDPROC);
     SetWindowLongPtr(targetHwnd, GWLP_WNDPROC, (LONG_PTR)&EmbeddedWindowProc);
 }

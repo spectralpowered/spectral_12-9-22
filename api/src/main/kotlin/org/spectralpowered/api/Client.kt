@@ -17,7 +17,27 @@
 
 package org.spectralpowered.api
 
-object Spectral {
+import org.spectralpowered.common.bind
+import org.spectralpowered.common.inject
+import org.spectralpowered.natives.jvm.api.RSClient
 
+/**
+ * Holds states and functions which perform general operations for the
+ * Old School RuneScape client.
+ */
+object Client {
+
+    private val rsClient: RSClient by inject()
+
+    /**
+     * The client's state to track what cycle function it should be executing
+     * every game tick.
+     */
+    var gameState: Int by bind(rsClient.states::gameState)
+
+    /**
+     * The login screen's state which determines the display screen in the login box.
+     */
+    var loginState: Int by bind(rsClient::loginState)
 
 }

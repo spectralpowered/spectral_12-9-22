@@ -23,11 +23,19 @@ allprojects {
     }
 }
 
-configure(allprojects.filter { it.name !in listOf("spectral-cpp") }) {
+configure(allprojects.filter {
+    it.name !in listOf("spectral-cpp")
+}) {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
     dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib:_")
+        if(name.startsWith("spectral-plugin")) {
+            compileOnly("org.jetbrains.kotlin:kotlin-stdlib:_")
+            compileOnly("org.jetbrains.kotlin:kotlin-reflect:_")
+        } else {
+            implementation("org.jetbrains.kotlin:kotlin-stdlib:_")
+            implementation("org.jetbrains.kotlin:kotlin-reflect:_")
+        }
     }
 
 

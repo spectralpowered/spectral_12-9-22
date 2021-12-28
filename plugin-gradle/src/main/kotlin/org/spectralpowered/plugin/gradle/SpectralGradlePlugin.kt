@@ -39,10 +39,6 @@ open class SpectralGradlePlugin : Plugin<Project>  {
         project.tasks.named<Jar>("jar") {
             archiveBaseName.set("${cfg.id}-plugin")
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-            from(project.configurations["runtimeClasspath"].map {
-                if(it.isDirectory) it
-                else project.zipTree(it)
-            })
             manifest {
                 attributes("Plugin-Id" to cfg.id)
                 attributes("Plugin-Class" to cfg.mainClass)
