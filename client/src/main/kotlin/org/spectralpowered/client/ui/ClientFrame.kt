@@ -32,6 +32,8 @@ class ClientFrame : JFrame("Spectral") {
 
     private lateinit var canvas: NativeCanvas
 
+    private val menuBar = MenuBar()
+
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         iconImages = ICONS
@@ -39,17 +41,14 @@ class ClientFrame : JFrame("Spectral") {
         preferredSize = size
         minimumSize = size
         layout = BorderLayout()
-    }
+        jMenuBar = menuBar
 
-    fun open() {
         this.syncFrameSize()
+
         setLocationRelativeTo(null)
         isVisible = true
-        this.initCanvas()
-    }
 
-    fun close() {
-        isVisible = false
+        this.initCanvas()
     }
 
     private fun initCanvas() {

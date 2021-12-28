@@ -74,13 +74,7 @@ class Spectral {
         @JvmStatic
         fun init() {
             startKoin { modules(DI_MODULES) }
-            thread {
-                try {
-                    get<Spectral>().start()
-                } catch (e: Exception) {
-                    Logger.error(e) { "An error occurred in the Spectral JVM." }
-                }
-            }
+            get<Spectral>().start()
         }
     }
 }

@@ -17,30 +17,25 @@
 
 package org.spectralpowered.client.ui
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme
-import com.sun.jna.platform.win32.WinDef
 import org.spectralpowered.client.Spectral
 import org.spectralpowered.common.inject
-import javax.swing.JDialog
-import javax.swing.JFrame
+import javax.swing.JMenu
+import javax.swing.JMenuBar
+import javax.swing.JMenuItem
 
-class SpectralUI {
+class MenuBar : JMenuBar() {
 
     private val spectral: Spectral by inject()
 
-    lateinit var osrsHwnd: WinDef.HWND internal set
-
-    internal lateinit var clientFrame: ClientFrame
-
-    fun open() {
-        JFrame.setDefaultLookAndFeelDecorated(true)
-        JDialog.setDefaultLookAndFeelDecorated(true)
-        FlatAtomOneDarkContrastIJTheme.setup()
-        clientFrame = ClientFrame()
+    init {
+        JMenu("File").also { menu ->
+            JMenuItem("Exit").also {
+                it.addActionListener { spectral.stop() }
+                menu.add(it)
+            }
+            add(menu)
+        }
     }
 
-    fun close() {
-        clientFrame.isVisible = false
-        spectral.stop()
-    }
+
 }
