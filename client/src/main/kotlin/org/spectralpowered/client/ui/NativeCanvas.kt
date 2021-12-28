@@ -40,13 +40,11 @@ class NativeCanvas(private val osrsHwnd: WinDef.HWND) : Canvas() {
                 parentHwnd = User32.INSTANCE.GetAncestor(osrsHwnd, GA_PARENT)
                 attached.set(true)
                 NativeCanvasLibrary.INSTANCE.embedWindow(osrsHwnd, localHwnd!!)
-                repaint()
             }
         }
     }
 
     override fun paint(g: Graphics) {
-        super.paint(g)
         if(!attached.get()) attach()
         NativeCanvasLibrary.INSTANCE.resizeWindow(osrsHwnd, localHwnd!!)
     }

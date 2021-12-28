@@ -15,19 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.plugin.testplugin1
+package org.spectralpowered.api
 
-import org.spectralpowered.plugin.PluginAttributes
-import org.spectralpowered.plugin.SpectralPlugin
-import org.tinylog.kotlin.Logger
+import org.koin.dsl.module
 
-class TestPlugin1(attributes: PluginAttributes) : SpectralPlugin(attributes) {
+val API_MODULE = module {
 
-    override fun onEnable() {
-        Logger.info("Test plugin fdsfsf Enabled running version: $version")
-    }
-
-    override fun onDisable() {
-        Logger.info("Test plugin Disabled!")
-    }
 }

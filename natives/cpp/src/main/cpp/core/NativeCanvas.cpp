@@ -26,12 +26,8 @@ void NativeCanvas::resizeWindow(HWND targetHwnd, HWND parentHwnd) {
 
 void NativeCanvas::embedWindow(HWND targetHwnd, HWND parentHwnd) {
     SetWindowLong(targetHwnd, GWL_STYLE, WS_VISIBLE);
-
     SetParent(targetHwnd, parentHwnd);
-
-    ShowWindow(targetHwnd, SW_HIDE);
     ShowWindow(targetHwnd, SW_SHOW);
-
     defWindowProc = (WNDPROC) GetWindowLongPtr(targetHwnd, GWLP_WNDPROC);
     SetWindowLongPtr(targetHwnd, GWLP_WNDPROC, (LONG_PTR)&EmbeddedWindowProc);
 }

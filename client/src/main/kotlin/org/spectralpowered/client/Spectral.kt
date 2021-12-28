@@ -21,9 +21,12 @@ import com.sun.jna.platform.WindowUtils
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.ptr.IntByReference
 import org.koin.core.context.startKoin
+import org.spectralpowered.api.API_MODULE
 import org.spectralpowered.client.ui.SpectralUI
 import org.spectralpowered.common.get
 import org.spectralpowered.common.inject
+import org.spectralpowered.plugin.PLUGIN_MODULE
+import org.spectralpowered.plugin.PluginManager
 import org.tinylog.kotlin.Logger
 import java.lang.management.ManagementFactory
 import kotlin.concurrent.thread
@@ -32,14 +35,21 @@ import kotlin.system.exitProcess
 class Spectral {
 
     private val ui: SpectralUI by inject()
+    private val pluginManager: PluginManager by inject()
 
     var processId: Int = -1
         private set
 
     fun start() {
         Logger.info("Starting Spectral client.")
+
         this.waitForClientWindow()
         ui.open()
+
+        /*
+         * Load all Spectral client plugins.
+         */
+        pluginManager.loadAllPlugins()
     }
 
     fun stop() {
@@ -68,7 +78,9 @@ class Spectral {
     companion object {
 
         private val DI_MODULES = listOf(
-            CLIENT_MODULE
+            CLIENT_MODULE,
+            API_MODULE,
+            PLUGIN_MODULE
         )
 
         @JvmStatic

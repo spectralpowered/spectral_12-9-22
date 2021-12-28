@@ -15,19 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.plugin.testplugin1
+package org.spectralpowered.plugin
 
-import org.spectralpowered.plugin.PluginAttributes
-import org.spectralpowered.plugin.SpectralPlugin
+import org.pf4j.*
+import org.spectralpowered.common.SPECTRAL_PLUGIN_DIR
 import org.tinylog.kotlin.Logger
+import java.nio.file.Paths
 
-class TestPlugin1(attributes: PluginAttributes) : SpectralPlugin(attributes) {
+class PluginManager : DefaultPluginManager(listOf(SPECTRAL_PLUGIN_DIR.toPath())) {
 
-    override fun onEnable() {
-        Logger.info("Test plugin fdsfsf Enabled running version: $version")
+    override fun createPluginDescriptorFinder(): CompoundPluginDescriptorFinder {
+        return CompoundPluginDescriptorFinder().add(ManifestPluginDescriptorFinder())
     }
 
-    override fun onDisable() {
-        Logger.info("Test plugin Disabled!")
+    fun loadAllPlugins() {
+        Logger.info("Loading Spectral plugins.")
+
+        this.loadPlugins()
+        this.startPlugins()
+
+        Logger.info("Successfully enabled ${this.startedPlugins.size} plugins.")
     }
 }

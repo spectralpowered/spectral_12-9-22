@@ -15,19 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.plugin.testplugin1
+package org.spectralpowered.plugin
 
-import org.spectralpowered.plugin.PluginAttributes
-import org.spectralpowered.plugin.SpectralPlugin
-import org.tinylog.kotlin.Logger
+import org.pf4j.Plugin
+import org.pf4j.PluginWrapper
 
-class TestPlugin1(attributes: PluginAttributes) : SpectralPlugin(attributes) {
+typealias PluginAttributes = PluginWrapper
 
-    override fun onEnable() {
-        Logger.info("Test plugin fdsfsf Enabled running version: $version")
-    }
+abstract class SpectralPlugin(wrapper: PluginWrapper) : Plugin(wrapper) {
 
-    override fun onDisable() {
-        Logger.info("Test plugin Disabled!")
-    }
+    val id: String get() = wrapper.descriptor.pluginId
+    val mainClass: String get() = wrapper.descriptor.pluginClass
+    val version: String get() = wrapper.descriptor.version
+    val author: String get() = wrapper.descriptor.provider
+
+    abstract fun onEnable()
+    abstract fun onDisable()
+
+    override fun start() { this.onEnable() }
+    override fun stop() { this.onDisable() }
 }

@@ -37,7 +37,12 @@ object Launcher {
          * Kill any already running Steam client processes otherwise Spectral may inject
          * into an already running process of the game.
          */
-        Runtime.getRuntime().exec("taskkill /F /IM osclient.exe /T").waitFor()
+        val res = Runtime.getRuntime().exec("taskkill /F /IM osclient.exe /T").waitFor()
+        if(res == 0) {
+            Logger.info("Waiting for previous running Old School RuneScape client to terminate.")
+            SplashScreen.progressText = "Waiting for previous client process to terminate."
+            Thread.sleep(3000)
+        }
 
         this.checkDirs()
         JvmDownloader.run()

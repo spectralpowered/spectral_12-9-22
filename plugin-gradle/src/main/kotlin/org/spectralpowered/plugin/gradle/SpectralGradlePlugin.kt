@@ -19,24 +19,45 @@ package org.spectralpowered.plugin.gradle
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.file.DuplicatesStrategy
+import org.gradle.api.tasks.Copy
 import org.gradle.jvm.tasks.Jar
-import org.gradle.kotlin.dsl.attributes
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.named
-import org.gradle.kotlin.dsl.project
+import org.gradle.kotlin.dsl.*
+import org.gradle.kotlin.dsl.support.zipTo
+import java.io.File
 
 open class SpectralGradlePlugin : Plugin<Project>  {
+
+    private val pluginsDir = File(System.getProperty("user.home")).resolve(".spectral/plugins/")
 
     override fun apply(project: Project) {
         val cfg = project.extensions.create("plugin", SpectralGradlePluginExtension::class.java)
 
+        project.group = cfg.id
+        project.version = cfg.version
+
         project.tasks.named<Jar>("jar") {
+            archiveBaseName.set("${cfg.id}-plugin")
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+            from(project.configurations["runtimeClasspath"].map {
+                if(it.isDirectory) it
+                else project.zipTree(it)
+            })
             manifest {
                 attributes("Plugin-Id" to cfg.id)
                 attributes("Plugin-Class" to cfg.mainClass)
                 attributes("Plugin-Version" to cfg.version)
                 attributes("Plugin-Provider" to cfg.author)
             }
+        }
+
+        project.tasks.register<Copy>("assemblePlugin") {
+            from(project.tasks.named("jar"))
+            into(pluginsDir)
+        }
+
+        project.tasks.named("build") {
+            dependsOn(project.tasks.named("jar"))
         }
     }
 }

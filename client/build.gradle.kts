@@ -2,6 +2,8 @@ dependencies {
     implementation(project(":spectral-common"))
     implementation(project(":spectral-logger"))
     implementation(project(":spectral-jvm"))
+    implementation(project(":spectral-api"))
+    implementation(project(":spectral-plugin"))
     implementation("com.formdev:flatlaf:_")
     implementation("com.formdev:flatlaf-intellij-themes:_")
 }
