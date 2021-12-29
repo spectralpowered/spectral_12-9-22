@@ -38,7 +38,7 @@ object Offsets {
     /**
      * ===== FUNCTION POINTER SIGNATURES =====
      */
-    val fnShowDesktopLoginScreen by module(read = false)(0x40, 0x53, 0x48, 0x83, 0xEC, 0x30, 0x0F, 0xB6, 0xD9)
+    val fnShowNormalLoginScreen by module(read = false)(0x40, 0x53, 0x48, 0x83, 0xEC, 0x30, 0x0F, 0xB6, 0xD9)
 
     internal fun scanSignatures() {
         val fields = this::class.memberProperties.toList()

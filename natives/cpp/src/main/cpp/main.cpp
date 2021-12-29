@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <ShlObj.h>
 #include "util/jni/jnipp.h"
+#include "spectral/Spectral.h"
 
 using namespace std;
 
@@ -30,6 +31,11 @@ void init()
 {
     initConsole();
     initSpectralJVM();
+
+    /*
+     * Initialize the Spectral internal natives.
+     */
+    Spectral::init();
 }
 
 BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)

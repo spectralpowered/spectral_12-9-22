@@ -417,7 +417,7 @@ ASMJIT_API void debugOutput(const char* str) noexcept;
 //! \param msg Message to display.
 //!
 //! If you have problems with assertion failures a breakpoint can be put
-//! at \ref assertionFailed() function (asmjit/core/globals.cpp). A call stack
+//! at \ref assertionFailed() function (asmjit/spectral/globals.cpp). A call stack
 //! will be available when such assertion failure is triggered. AsmJit always
 //! returns errors on failures, assertions are a last resort and usually mean
 //! unrecoverable state due to out of range array access or totally invalid

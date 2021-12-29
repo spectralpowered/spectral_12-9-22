@@ -30,17 +30,31 @@ class SpectralUI {
 
     lateinit var osrsHwnd: WinDef.HWND internal set
 
-    internal lateinit var clientFrame: ClientFrame
+    internal lateinit var clientFrame: ClientFrame private set
+    internal lateinit var overlayFrame: OverlayFrame private set
 
     fun open() {
+        /*
+         * Install the Spectral Powered Look-And-Feel Theme.
+         */
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)
         FlatAtomOneDarkContrastIJTheme.setup()
+
+        /*
+         * Open the Spectral client frame.
+         */
         clientFrame = ClientFrame()
+
+        /*
+         * Open the Spectral client overlay frame.
+         */
+        overlayFrame = OverlayFrame(clientFrame).also { it.open() }
     }
 
     fun close() {
         clientFrame.isVisible = false
+        overlayFrame.isVisible = false
         spectral.stop()
     }
 }

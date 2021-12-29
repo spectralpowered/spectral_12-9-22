@@ -17,14 +17,20 @@
 
 package org.spectralpowered.natives.jvm.api
 
+import com.sun.jna.Function
+import com.sun.jna.Pointer
 import org.jire.arrowhead.Addressed
 import org.spectralpowered.natives.jvm.Offsets.dwLoginState
 import org.spectralpowered.natives.jvm.Offsets.dwStates
+import org.spectralpowered.natives.jvm.Offsets.fnShowNormalLoginScreen
 import org.spectralpowered.natives.jvm.SpectralNatives.process
 import org.spectralpowered.natives.jvm.util.invoke
 import org.spectralpowered.natives.jvm.util.pointer
 
 class RSClient(override val address: Long) : Addressed {
     val states = RSStates(process.pointer(address + dwStates))
+
     var loginState: Int by process(address + dwLoginState)
+
+    fun showNormalLoginScreen() = Function.getFunction(Pointer(address + fnShowNormalLoginScreen)).invoke(arrayOf(0))
 }

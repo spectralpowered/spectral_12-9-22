@@ -56,11 +56,24 @@ class Spectral {
         /*
          * Load all Spectral client plugins.
          */
-        pluginManager.loadAllPlugins()
+        pluginManager.loadPlugins()
+        pluginManager.startPlugins()
     }
 
     fun stop() {
         Logger.info("Stopping Spectral client.")
+
+        /*
+         * Disable / Stop all loaded plugins.
+         */
+        pluginManager.stopPlugins()
+        pluginManager.unloadPlugins()
+
+        /*
+         * Close all Spectral UI's
+         */
+        ui.close()
+
         exitProcess(0)
     }
 

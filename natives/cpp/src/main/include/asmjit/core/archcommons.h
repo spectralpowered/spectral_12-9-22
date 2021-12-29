@@ -25,7 +25,7 @@
 #define ASMJIT_CORE_ARCHCOMMONS_H_INCLUDED
 
 // This file provides architecture-specific classes that are required in the
-// core library. For example Imm operand allows to be created from arm::Shift
+// spectral library. For example Imm operand allows to be created from arm::Shift
 // in a const-expr way, so the arm::Shift must be provided. So this header
 // file provides everything architecture-specific that is used by the Core API.
 

@@ -30,8 +30,7 @@ class ClientFrame : JFrame("Spectral") {
 
     private val ui: SpectralUI by inject()
 
-    private lateinit var canvas: NativeCanvas
-
+    lateinit var canvas: NativeCanvas private set
     private val menuBar = MenuBar()
 
     init {

@@ -636,7 +636,7 @@ public:
   //! Attached `ErrorHandler`.
   ErrorHandler* _errorHandler;
 
-  //! Code zone (used to allocate core structures).
+  //! Code zone (used to allocate spectral structures).
   Zone _zone;
   //! Zone allocator, used to manage internal containers.
   ZoneAllocator _allocator;

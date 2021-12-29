@@ -164,7 +164,7 @@ namespace asmjit {
 //!       this compiler.
 //!
 //!     - **Other** C++ compilers would require basic support in
-//!       [core/api-config.h](https://github.com/asmjit/asmjit/tree/master/src/asmjit/core/api-config.h).
+//!       [core/api-config.h](https://github.com/asmjit/asmjit/tree/master/src/asmjit/spectral/api-config.h).
 //!
 //! ### Supported Operating Systems and Platforms
 //!
@@ -189,9 +189,9 @@ namespace asmjit {
 //!
 //!     - **Other** operating systems would require some testing and support in
 //!       the following files:
-//!       - [core/api-config.h](https://github.com/asmjit/asmjit/tree/master/src/asmjit/core/api-config.h)
-//!       - [core/osutils.cpp](https://github.com/asmjit/asmjit/tree/master/src/asmjit/core/osutils.cpp)
-//!       - [core/virtmem.cpp](https://github.com/asmjit/asmjit/tree/master/src/asmjit/core/virtmem.cpp)
+//!       - [spectral/api-config.h](https://github.com/asmjit/asmjit/tree/master/src/asmjit/spectral/api-config.h)
+//!       - [spectral/osutils.cpp](https://github.com/asmjit/asmjit/tree/master/src/asmjit/spectral/osutils.cpp)
+//!       - [spectral/virtmem.cpp](https://github.com/asmjit/asmjit/tree/master/src/asmjit/spectral/virtmem.cpp)
 //!
 //! ### Supported Backends / Architectures
 //!
@@ -472,7 +472,7 @@ namespace asmjit {
 //!     code in executable memory. \ref Target can be customized by inheriting from
 //!     it.
 //!
-//! There are also other core classes that are important:
+//! There are also other spectral classes that are important:
 //!
 //!   - \ref Environment - describes where the code will run. Environment brings
 //!     the concept of target triples or tuples into AsmJit, which means that users
@@ -805,7 +805,7 @@ namespace asmjit {
 //! there are any unresolved links.
 //!
 //! ```
-//! #include <asmjit/core.h>
+//! #include <asmjit/spectral.h>
 //! #include <stdio.h>
 //!
 //! void labelLinksExample(CodeHolder& code, const Label& label) {
@@ -829,7 +829,7 @@ namespace asmjit {
 //! offset relative to the start of the section where it was bound:
 //!
 //! ```
-//! #include <asmjit/core.h>
+//! #include <asmjit/spectral.h>
 //! #include <stdio.h>
 //!
 //! void labelOffsetExample(CodeHolder& code, const Label& label) {
@@ -1471,7 +1471,7 @@ namespace asmjit {
 //! use \ref FileLogger that outputs to standard output:
 //!
 //! ```
-//! #include <asmjit/core.h>
+//! #include <asmjit/spectral.h>
 //! #include <stdio.h>
 //!
 //! using namespace asmjit;
@@ -1493,7 +1493,7 @@ namespace asmjit {
 //! which concatenates everything into a multi-line string:
 //!
 //! ```
-//! #include <asmjit/core.h>
+//! #include <asmjit/spectral.h>
 //! #include <stdio.h>
 //! #include <utility>
 //!
@@ -1532,7 +1532,7 @@ namespace asmjit {
 //! The first example illustrates how to format operands:
 //!
 //! ```
-//! #include <asmjit/core.h>
+//! #include <asmjit/spectral.h>
 //! #include <stdio.h>
 //!
 //! using namespace asmjit;
@@ -1567,7 +1567,7 @@ namespace asmjit {
 //! Next example illustrates how to format whole instructions:
 //!
 //! ```
-//! #include <asmjit/core.h>
+//! #include <asmjit/spectral.h>
 //! #include <stdio.h>
 //! #include <utility>
 //!
@@ -1624,7 +1624,7 @@ namespace asmjit {
 //! to format the content of \ref BaseBuilder, which consists of nodes:
 //!
 //! ```
-//! #include <asmjit/core.h>
+//! #include <asmjit/spectral.h>
 //! #include <stdio.h>
 //!
 //! using namespace asmjit;

@@ -28,12 +28,4 @@ class PluginManager : DefaultPluginManager(listOf(SPECTRAL_PLUGIN_DIR.toPath()))
         return CompoundPluginDescriptorFinder().add(ManifestPluginDescriptorFinder())
     }
 
-    fun loadAllPlugins() {
-        Logger.info("Loading Spectral plugins.")
-
-        this.loadPlugins()
-        this.startPlugins()
-
-        Logger.info("Successfully enabled ${this.startedPlugins.size} plugins.")
-    }
 }

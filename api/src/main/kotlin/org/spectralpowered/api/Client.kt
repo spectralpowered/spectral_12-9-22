@@ -38,6 +38,10 @@ object Client {
     /**
      * The login screen's state which determines the display screen in the login box.
      */
-    var loginState: Int by bind(rsClient::loginState)
-
+    var loginPage: LoginPage
+        get() = LoginPage.fromId(rsClient.loginState)
+        set(value) = when(value) {
+            LoginPage.NORMAL_LOGIN -> rsClient.showNormalLoginScreen()
+            else -> rsClient.loginState = value.id
+        }
 }
