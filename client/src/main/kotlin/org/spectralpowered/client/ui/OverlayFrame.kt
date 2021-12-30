@@ -18,6 +18,7 @@
 package org.spectralpowered.client.ui
 
 import com.sun.jna.Native
+import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinUser.*
@@ -72,6 +73,7 @@ class OverlayFrame(private val clientFrame: ClientFrame) : JWindow(clientFrame) 
         }
 
     fun open() {
+        updateBounds()
         isVisible = true
         hwnd = WinDef.HWND(Native.getComponentPointer(this))
         isWindowOpaque = false
@@ -95,12 +97,12 @@ class OverlayFrame(private val clientFrame: ClientFrame) : JWindow(clientFrame) 
 
     private fun registerListeners() {
         clientFrame.addComponentListener(object : ComponentAdapter() {
-            override fun componentMoved(e: ComponentEvent) = this@OverlayFrame.updateSizeAndPosition(e)
-            override fun componentResized(e: ComponentEvent) = this@OverlayFrame.updateSizeAndPosition(e)
+            override fun componentMoved(e: ComponentEvent) = this@OverlayFrame.updateBounds()
+            override fun componentResized(e: ComponentEvent) = this@OverlayFrame.updateBounds()
         })
     }
 
-    private fun updateSizeAndPosition(e: ComponentEvent) {
+    private fun updateBounds() {
         val pos = clientFrame.contentPane.locationOnScreen
         val size = clientFrame.contentPane.size
         bounds = Rectangle(pos, size)
@@ -110,6 +112,8 @@ class OverlayFrame(private val clientFrame: ClientFrame) : JWindow(clientFrame) 
 
         override fun paintComponent(g: Graphics) {
             super.paintComponent(g)
+
+            //User32.INSTANCE.MoveWindow(hwnd, 0, 0, width, height, false)
 
             val g2d = g.create() as Graphics2D
 
@@ -124,8 +128,9 @@ class OverlayFrame(private val clientFrame: ClientFrame) : JWindow(clientFrame) 
             /*
              * Draw something on the overlay
              */
-            g2d.color = Color.RED
-            g2d.fillRect(0, 0, 300, 175)
+            g2d.color = Color.YELLOW
+            g2d.font = Font(Font.DIALOG, Font.PLAIN, 32)
+            g2d.drawString("Spectral text overlay test!", 32, 32)
 
             /*
              * Dispose this frame's graphics context to flush the graphics buffer to

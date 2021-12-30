@@ -18,8 +18,6 @@
 package org.spectralpowered.natives.jvm
 
 import org.koin.dsl.module
-import org.spectralpowered.natives.jvm.api.RSClient
 
 val JVM_NATIVES_MODULE = module {
-    single { (address: Long) -> RSClient(address) }
 }

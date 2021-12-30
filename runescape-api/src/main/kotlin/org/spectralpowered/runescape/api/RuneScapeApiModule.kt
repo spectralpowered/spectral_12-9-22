@@ -15,9 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.api
+package org.spectralpowered.runescape.api
 
-interface Client {
+import org.koin.dsl.bind
+import org.koin.dsl.module
+import org.spectralpowered.api.Client
 
-
+val RUNESCAPE_API_MODULE = module {
+    single { RSClient() } bind Client::class
 }

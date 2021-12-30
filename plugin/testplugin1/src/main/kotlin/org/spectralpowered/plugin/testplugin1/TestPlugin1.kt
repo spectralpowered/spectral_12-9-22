@@ -17,9 +17,6 @@
 
 package org.spectralpowered.plugin.testplugin1
 
-import org.spectralpowered.api.Client
-import org.spectralpowered.api.LoginPage
-import org.spectralpowered.common.every
 import org.spectralpowered.plugin.PluginAttributes
 import org.spectralpowered.plugin.SpectralPlugin
 import org.tinylog.kotlin.Logger
@@ -28,12 +25,6 @@ class TestPlugin1(attributes: PluginAttributes) : SpectralPlugin(attributes) {
 
     override fun onEnable() {
         Logger.info("Test plugin fdsfsf Enabled running version: $version")
-
-        every(1L) {
-            if(Client.loginPage == LoginPage.STEAM_LOGIN || Client.loginPage == LoginPage.STEAM_LOGIN_SETUP) {
-                Client.loginPage = LoginPage.NORMAL_LOGIN
-            }
-        }
     }
 
     override fun onDisable() {

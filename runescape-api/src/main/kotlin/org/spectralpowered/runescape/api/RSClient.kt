@@ -15,12 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.jvm.api
+package org.spectralpowered.runescape.api
 
-import org.jire.arrowhead.Addressed
-import org.spectralpowered.natives.jvm.SpectralNatives.process
-import org.spectralpowered.natives.jvm.util.invoke
-
-class RSStates(override val address: Long) : Addressed {
-    var gameState: Int by process(address, 0x1F98)
+class RSClient {
 }

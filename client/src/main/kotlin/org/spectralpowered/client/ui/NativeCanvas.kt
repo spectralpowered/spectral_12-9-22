@@ -22,16 +22,23 @@ import com.sun.jna.Native
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinUser.*
+import org.spectralpowered.common.inject
 import java.awt.Canvas
+import java.awt.Frame
 import java.awt.Graphics
+import java.awt.event.WindowAdapter
 import java.util.concurrent.atomic.AtomicBoolean
 
-class NativeCanvas(private val osrsHwnd: WinDef.HWND) : Canvas() {
+class NativeCanvas(val osrsHwnd: WinDef.HWND) : Canvas() {
+
+    private val ui: SpectralUI by inject()
 
     private var attached = AtomicBoolean(false)
 
-    private var parentHwnd: WinDef.HWND? = null
-    private var localHwnd: WinDef.HWND? = null
+    var parentHwnd: WinDef.HWND? = null
+    var localHwnd: WinDef.HWND? = null
+
+    private var style = -1
 
     fun attach() {
         if(!attached.get()) {
@@ -39,14 +46,14 @@ class NativeCanvas(private val osrsHwnd: WinDef.HWND) : Canvas() {
             if(localHwnd != null) {
                 parentHwnd = User32.INSTANCE.GetAncestor(osrsHwnd, GA_PARENT)
                 attached.set(true)
-                NativeCanvasLibrary.INSTANCE.embedWindow(osrsHwnd, localHwnd!!)
+                NativeCanvasLibrary.INSTANCE.embedWindow(parentHwnd!!, localHwnd!!)
             }
         }
     }
 
     override fun paint(g: Graphics) {
         if(!attached.get()) attach()
-        NativeCanvasLibrary.INSTANCE.resizeWindow(osrsHwnd, localHwnd!!)
+        NativeCanvasLibrary.INSTANCE.resizeWindow(parentHwnd!!, localHwnd!!)
     }
 
     interface NativeCanvasLibrary : Library {
@@ -56,5 +63,10 @@ class NativeCanvas(private val osrsHwnd: WinDef.HWND) : Canvas() {
         companion object {
             val INSTANCE by lazy { Native.load("spectral", NativeCanvasLibrary::class.java) }
         }
+    }
+
+    companion object {
+        private const val WS_EX_TOOLWINDOW = 0x00000080
+        private const val WS_EX_APPWINDOW = 0x00040000
     }
 }

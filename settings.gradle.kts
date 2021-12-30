@@ -17,6 +17,7 @@ module("api")
 module("plugin")
 module("cpp", "natives/cpp")
 module("jvm", "natives/jvm")
+include("runescape-api")
 pluginModules("plugin")
 
 fun module(moduleName: String, modulePath: String? = null) {

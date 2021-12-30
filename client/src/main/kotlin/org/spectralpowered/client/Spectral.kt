@@ -17,8 +17,12 @@
 
 package org.spectralpowered.client
 
+import com.sun.jna.Pointer
 import com.sun.jna.platform.WindowUtils
 import com.sun.jna.platform.win32.User32
+import com.sun.jna.platform.win32.WinDef
+import com.sun.jna.platform.win32.WinUser
+import com.sun.jna.platform.win32.WinUser.GW_CHILD
 import com.sun.jna.ptr.IntByReference
 import org.koin.core.context.startKoin
 import org.spectralpowered.api.API_MODULE
@@ -82,15 +86,14 @@ class Spectral {
         processId = ManagementFactory.getRuntimeMXBean().name.split("@").first().toInt()
         while(!Thread.interrupted()) {
             try {
-                ui.osrsHwnd = WindowUtils.getAllWindows(true).first {
+                val jagWindowHwnd = WindowUtils.getAllWindows(true).first {
                     val pid = IntByReference()
                     User32.INSTANCE.GetWindowThreadProcessId(it.hwnd, pid)
                     it.title == "Old School RuneScape" && pid.value == processId
                 }.hwnd
+                ui.osrsHwnd = User32.INSTANCE.GetWindow(jagWindowHwnd, WinDef.DWORD(5L))!!
                 break
-            } catch (e : Exception) {
-                Thread.sleep(0L)
-            }
+            } catch (e : Exception) {}
         }
         Logger.info("Found client window running with process ID: $processId.")
     }
@@ -101,7 +104,7 @@ class Spectral {
             CLIENT_MODULE,
             API_MODULE,
             PLUGIN_MODULE,
-            JVM_NATIVES_MODULE
+            JVM_NATIVES_MODULE,
         )
 
         @JvmStatic

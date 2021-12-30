@@ -32,4 +32,3 @@ void NativeCanvas::embedWindow(HWND targetHwnd, HWND parentHwnd) {
     defWindowProc = (WNDPROC) GetWindowLongPtr(targetHwnd, GWLP_WNDPROC);
     SetWindowLongPtr(targetHwnd, GWLP_WNDPROC, (LONG_PTR)&EmbeddedWindowProc);
 }
-

@@ -23,12 +23,9 @@ import org.jire.arrowhead.processByID
 import org.koin.core.parameter.parametersOf
 import org.spectralpowered.common.get
 import org.spectralpowered.common.retry
-import org.spectralpowered.natives.jvm.api.RSClient
 import org.tinylog.kotlin.Logger
 
 object SpectralNatives {
-
-    private lateinit var client: RSClient
 
     lateinit var process: Process private set
     lateinit var module: Module private set
@@ -48,17 +45,5 @@ object SpectralNatives {
          * Scan and resolve all signatures to cache the offset address's.
          */
         Offsets.scanSignatures()
-
-        /*
-         * Initialize all native jvm api singletons with the base address of
-         * the base module of the client process.
-         */
-        this.initApi()
-    }
-
-    private fun initApi() {
-        client = get { parametersOf(this.module.address) }
-
-        Logger.info("Spectral JVM API has been fully initialized.")
     }
 }

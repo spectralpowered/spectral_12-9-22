@@ -22,6 +22,7 @@ import org.tinylog.kotlin.Logger
 import java.awt.Desktop
 import java.io.InputStreamReader
 import java.net.URI
+import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
 object SteamClientLauncher {

@@ -4,6 +4,7 @@ dependencies {
     implementation(project(":spectral-jvm"))
     implementation(project(":spectral-api"))
     implementation(project(":spectral-plugin"))
+    implementation(project(":runescape-api"))
     implementation("com.formdev:flatlaf:_")
     implementation("com.formdev:flatlaf-intellij-themes:_")
 }

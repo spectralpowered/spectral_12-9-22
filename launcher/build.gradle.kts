@@ -22,6 +22,10 @@ application {
     mainClass.set("org.spectralpowered.launcher.Launcher")
 }
 
+tasks.named<JavaExec>("run") {
+    dependsOn(project(":spectral-plugin").tasks.build)
+}
+
 tasks.compileJava {
     dependsOn(project(":spectral-client").tasks.getByName("copyFullJar"))
     dependsOn(project(":spectral-cpp").tasks.build)
