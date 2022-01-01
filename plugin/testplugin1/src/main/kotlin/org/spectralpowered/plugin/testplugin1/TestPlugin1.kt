@@ -17,6 +17,8 @@
 
 package org.spectralpowered.plugin.testplugin1
 
+import org.spectralpowered.api.Spectral
+import org.spectralpowered.common.every
 import org.spectralpowered.plugin.PluginAttributes
 import org.spectralpowered.plugin.SpectralPlugin
 import org.tinylog.kotlin.Logger
@@ -25,6 +27,10 @@ class TestPlugin1(attributes: PluginAttributes) : SpectralPlugin(attributes) {
 
     override fun onEnable() {
         Logger.info("Test plugin fdsfsf Enabled running version: $version")
+
+        every(1000L) {
+            Logger.info("GameState: ${Spectral.client.gameState} - LoginState: ${Spectral.client.loginPage}")
+        }
     }
 
     override fun onDisable() {

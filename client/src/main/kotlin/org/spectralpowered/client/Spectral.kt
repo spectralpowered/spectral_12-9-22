@@ -33,6 +33,7 @@ import org.spectralpowered.natives.jvm.JVM_NATIVES_MODULE
 import org.spectralpowered.natives.jvm.SpectralNatives
 import org.spectralpowered.plugin.PLUGIN_MODULE
 import org.spectralpowered.plugin.PluginManager
+import org.spectralpowered.runescape.api.RUNESCAPE_API_MODULE
 import org.tinylog.kotlin.Logger
 import java.lang.management.ManagementFactory
 import kotlin.concurrent.thread
@@ -105,6 +106,7 @@ class Spectral {
             API_MODULE,
             PLUGIN_MODULE,
             JVM_NATIVES_MODULE,
+            RUNESCAPE_API_MODULE
         )
 
         @JvmStatic

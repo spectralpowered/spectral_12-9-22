@@ -17,5 +17,19 @@
 
 package org.spectralpowered.runescape.api
 
-class RSClient {
+import org.jire.arrowhead.Addressed
+import org.spectralpowered.api.Client
+import org.spectralpowered.natives.jvm.Offsets.dwClientStates
+import org.spectralpowered.natives.jvm.Offsets.dwLoginPage
+import org.spectralpowered.natives.jvm.SpectralNatives.module
+import org.spectralpowered.natives.jvm.SpectralNatives.process
+import org.spectralpowered.natives.jvm.util.invoke
+import org.spectralpowered.natives.jvm.util.pointer
+
+class RSClient(override val address: Long = module.address) : Addressed, Client {
+
+    override var gameState: Int by process(process.pointer(address + dwClientStates, 0x1F98))
+
+    override var loginPage: Int by process(address + dwLoginPage)
+
 }

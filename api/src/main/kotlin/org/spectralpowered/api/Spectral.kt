@@ -17,10 +17,8 @@
 
 package org.spectralpowered.api
 
-interface Client {
+import org.spectralpowered.common.inject
 
-    var gameState: Int
-
-    var loginPage: Int
-
+object Spectral {
+    val client: Client by inject()
 }

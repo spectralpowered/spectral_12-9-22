@@ -23,7 +23,7 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 fun Process.pointer(address: Long, offset: Long = 0L): Long {
-    return this[address + offset]
+    return this.long(address) + offset
 }
 
 inline operator fun <reified T : Any> Process.invoke(address: Long, offset: Long = 0L) = object : ReadWriteProperty<Any, T> {

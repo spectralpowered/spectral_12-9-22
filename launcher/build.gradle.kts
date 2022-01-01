@@ -23,7 +23,7 @@ application {
 }
 
 tasks.named<JavaExec>("run") {
-    dependsOn(project(":spectral-plugin").tasks.build)
+    dependsOn(project(":spectral-plugin").tasks.getByName("build"))
 }
 
 tasks.compileJava {
