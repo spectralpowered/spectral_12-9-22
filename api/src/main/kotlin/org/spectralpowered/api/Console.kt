@@ -1,7 +1,5 @@
 package org.spectralpowered.api
 
-import org.spectralpowered.common.inject
-
 interface Console {
 
     /**

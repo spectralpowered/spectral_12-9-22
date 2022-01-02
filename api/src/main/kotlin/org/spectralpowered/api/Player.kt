@@ -15,16 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.runescape.api
+package org.spectralpowered.api
 
-import org.koin.dsl.bind
-import org.koin.dsl.module
-import org.spectralpowered.api.Client
-import org.spectralpowered.api.Console
-import org.spectralpowered.api.Scene
+interface Player : LivingEntity {
 
-val RUNESCAPE_API_MODULE = module {
-    single { RSClient() } bind Client::class
-    single { RSConsole() } bind Console::class
-    single { RSScene() } bind Scene::class
 }

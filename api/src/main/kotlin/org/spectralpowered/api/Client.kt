@@ -23,5 +23,11 @@ interface Client {
 
     var loginPage: Int
 
+    val baseX: Int get() = 0
+
+    val baseY: Int get() = 0
+
+    val plane: Int get() = 0
+
     companion object : Client by Spectral.client
 }

@@ -22,4 +22,5 @@ import org.spectralpowered.common.inject
 object Spectral {
     val client: Client by inject()
     val console: Console by inject()
+    val scene: Scene by inject()
 }

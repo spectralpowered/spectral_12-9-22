@@ -17,14 +17,8 @@
 
 package org.spectralpowered.runescape.api
 
-import org.koin.dsl.bind
-import org.koin.dsl.module
-import org.spectralpowered.api.Client
-import org.spectralpowered.api.Console
-import org.spectralpowered.api.Scene
+import org.jire.arrowhead.Addressed
+import org.spectralpowered.natives.jvm.SpectralNatives.module
 
-val RUNESCAPE_API_MODULE = module {
-    single { RSClient() } bind Client::class
-    single { RSConsole() } bind Console::class
-    single { RSScene() } bind Scene::class
+class RSScene(override val address: Long = module.address) : Addressed {
 }
