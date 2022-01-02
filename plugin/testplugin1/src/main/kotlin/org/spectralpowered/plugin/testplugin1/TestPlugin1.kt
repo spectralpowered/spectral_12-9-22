@@ -17,11 +17,12 @@
 
 package org.spectralpowered.plugin.testplugin1
 
+import org.spectralpowered.api.Client
 import org.spectralpowered.api.Console
+import org.spectralpowered.api.Spectral
 import org.spectralpowered.common.every
 import org.spectralpowered.plugin.PluginAttributes
 import org.spectralpowered.plugin.SpectralPlugin
-import org.tinylog.kotlin.Logger
 
 class TestPlugin1(attributes: PluginAttributes) : SpectralPlugin(attributes) {
 
@@ -35,7 +36,7 @@ class TestPlugin1(attributes: PluginAttributes) : SpectralPlugin(attributes) {
         Console.error("This is an error message.")
 
         every(1000L) {
-
+            Console.info("<col=0000FF>GameState:</col> ${Client.gameState} <col=0000FF>LoginPage:</col> ${Client.loginPage}")
         }
     }
 

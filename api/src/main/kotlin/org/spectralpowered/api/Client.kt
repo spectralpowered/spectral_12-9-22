@@ -22,4 +22,6 @@ interface Client {
     var gameState: Int
 
     var loginPage: Int
+
+    companion object : Client by Spectral.client
 }
