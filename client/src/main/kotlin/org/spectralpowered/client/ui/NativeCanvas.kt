@@ -38,8 +38,6 @@ class NativeCanvas(val osrsHwnd: WinDef.HWND) : Canvas() {
     var parentHwnd: WinDef.HWND? = null
     var localHwnd: WinDef.HWND? = null
 
-    private var style = -1
-
     fun attach() {
         if(!attached.get()) {
             localHwnd = WinDef.HWND(Native.getComponentPointer(this))

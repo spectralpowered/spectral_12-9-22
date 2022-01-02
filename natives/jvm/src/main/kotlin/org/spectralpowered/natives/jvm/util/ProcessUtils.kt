@@ -22,8 +22,12 @@ import org.jire.arrowhead.get
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-fun Process.pointer(address: Long, offset: Long = 0L): Long {
-    return this.long(address) + offset
+inline fun <reified T : Any> Process.pointer(address: Long, vararg offsets: Long): ReadWriteProperty<Any, T> {
+    var current = address
+    for(i in offsets.indices) {
+        current = this.long(current) + offsets[i]
+    }
+    return this.invoke(current)
 }
 
 inline operator fun <reified T : Any> Process.invoke(address: Long, offset: Long = 0L) = object : ReadWriteProperty<Any, T> {

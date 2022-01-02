@@ -20,5 +20,6 @@ package org.spectralpowered.api
 import org.spectralpowered.common.inject
 
 object Spectral {
-    val client: Client by inject()
+    val Client: Client by inject()
+    val Console: Console by inject()
 }

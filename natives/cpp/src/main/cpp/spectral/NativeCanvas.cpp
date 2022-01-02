@@ -3,7 +3,7 @@
 WNDPROC defWindowProc;
 
 LRESULT EmbeddedWindowProc(HWND hwnd, UINT uMsg, WPARAM wparam, LPARAM lparam) {
-    if(uMsg == WM_NCCALCSIZE) return false;
+    if(uMsg == WM_NCCALCSIZE) return LRESULT(0);
     else return CallWindowProc(defWindowProc, hwnd, uMsg, wparam, lparam);
 }
 

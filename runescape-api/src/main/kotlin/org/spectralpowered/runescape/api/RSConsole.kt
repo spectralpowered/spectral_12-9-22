@@ -17,18 +17,22 @@
 
 package org.spectralpowered.runescape.api
 
+import com.sun.jna.Function
+import com.sun.jna.Pointer
 import org.jire.arrowhead.Addressed
-import org.spectralpowered.api.Client
-import org.spectralpowered.natives.jvm.Offsets.dwClientPtr
-import org.spectralpowered.natives.jvm.Offsets.dwLoginPage
+import org.spectralpowered.api.Console
+import org.spectralpowered.natives.jvm.Offsets.dwConsolePtr
+import org.spectralpowered.natives.jvm.Offsets.fnConsoleMessage
 import org.spectralpowered.natives.jvm.SpectralNatives.module
 import org.spectralpowered.natives.jvm.SpectralNatives.process
-import org.spectralpowered.natives.jvm.util.invoke
 import org.spectralpowered.natives.jvm.util.pointer
 
-class RSClient(override val address: Long = module.address) : Addressed, Client {
+class RSConsole : Console, Addressed {
 
-    override var gameState: Int by process.pointer(address + dwClientPtr, 0x1F98)
+    override val address: Long by process.pointer(module.address + dwConsolePtr, 0x88, 0x318, 0x250, 0x98, 0x8)
 
-    override var loginPage: Int by process(address + dwLoginPage)
+    override fun message(message: String) = Function.getFunction(Pointer(module.offset(fnConsoleMessage))).invoke(arrayOf(
+        Pointer(address),
+        message
+    ))
 }

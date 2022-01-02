@@ -29,7 +29,7 @@ void initSpectralJVM() {
 
 void init()
 {
-    initConsole();
+    //initConsole();
     initSpectralJVM();
 
     /*

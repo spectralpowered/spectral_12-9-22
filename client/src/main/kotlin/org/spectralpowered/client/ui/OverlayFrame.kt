@@ -126,13 +126,6 @@ class OverlayFrame(private val clientFrame: ClientFrame) : JWindow(clientFrame) 
             g2d.color = Color.WHITE
 
             /*
-             * Draw something on the overlay
-             */
-            g2d.color = Color.YELLOW
-            g2d.font = Font(Font.DIALOG, Font.PLAIN, 32)
-            g2d.drawString("Spectral text overlay test!", 32, 32)
-
-            /*
              * Dispose this frame's graphics context to flush the graphics buffer to
              * the canvas to be rendered.
              */

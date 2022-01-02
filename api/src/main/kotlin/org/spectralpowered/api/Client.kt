@@ -22,5 +22,4 @@ interface Client {
     var gameState: Int
 
     var loginPage: Int
-
 }
