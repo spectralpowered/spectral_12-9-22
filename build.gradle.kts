@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm") version "1.6.10"
 }
 
 group = "org.spectralpowered"
@@ -23,41 +23,3 @@ allprojects {
     }
 }
 
-configure(allprojects.filter {
-    it.name !in listOf("spectral-cpp")
-}) {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
-
-    dependencies {
-        if(name.startsWith("spectral-plugin")) {
-            compileOnly("org.jetbrains.kotlin:kotlin-stdlib:_")
-            compileOnly("org.jetbrains.kotlin:kotlin-reflect:_")
-        } else {
-            implementation("org.jetbrains.kotlin:kotlin-stdlib:_")
-            implementation("org.jetbrains.kotlin:kotlin-reflect:_")
-        }
-    }
-
-
-    tasks {
-        val javaVersion = JavaVersion.VERSION_11.toString()
-
-        compileKotlin {
-            kotlinOptions {
-                jvmTarget = javaVersion
-                sourceCompatibility = javaVersion
-                targetCompatibility = javaVersion
-            }
-        }
-
-        compileJava {
-            sourceCompatibility = javaVersion
-            targetCompatibility = javaVersion
-        }
-    }
-}
-
-tasks.wrapper {
-    gradleVersion = "7.2"
-    distributionType = Wrapper.DistributionType.ALL
-}

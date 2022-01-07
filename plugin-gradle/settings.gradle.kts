@@ -1,1 +1,0 @@
-rootProject.name = "spectral-plugin-gradle"
