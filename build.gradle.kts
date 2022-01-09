@@ -1,25 +1,24 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm")
 }
 
-group = "org.spectralpowered"
-version = "1.0.0"
-
-println("------------------------------------------------------------------------------------")
-println("Spectral Version: $version")
-println("Gradle Version: ${gradle.gradleVersion}")
-println("Java Version: ${System.getProperty("java.version")}")
-println("-----------------------------------------------------------------------------------")
-println()
+tasks.wrapper {
+    gradleVersion = "7.2"
+}
 
 allprojects {
-    group = rootProject.group
-    version = rootProject.version
+    group = "org.spectralpowered"
+    version = "1.0.0"
 
     repositories {
         mavenLocal()
         mavenCentral()
-        maven(url = "https://jitpack.io/")
+        google()
+    }
+
+    tasks.withType<KotlinCompile>().all {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_16.toString()
     }
 }
-

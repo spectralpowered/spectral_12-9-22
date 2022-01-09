@@ -1,14 +1,25 @@
-plugins {
-    id("de.fayard.refreshVersions") version "0.30.1"
-    id("com.gradle.enterprise") version "3.8"
-}
+import de.fayard.refreshVersions.core.FeatureFlag.*
 
-rootProject.name = "spectral-powered"
-
-gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = "yes"
-        publishOnFailure()
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        gradlePluginPortal()
     }
 }
+
+plugins {
+    id("com.gradle.enterprise") version "3.8"
+    id("de.fayard.refreshVersions") version "0.30.1"
+}
+
+refreshVersions {
+    featureFlags {
+        enable(LIBS)
+    }
+}
+
+rootProject.name = "spectral"
+
+include(":launcher")
