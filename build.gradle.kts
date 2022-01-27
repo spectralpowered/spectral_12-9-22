@@ -1,11 +1,9 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm")
 }
 
 tasks.wrapper {
-    gradleVersion = "7.2"
+    gradleVersion = "7.3"
 }
 
 allprojects {
@@ -17,8 +15,26 @@ allprojects {
         mavenCentral()
         google()
     }
+}
 
-    tasks.withType<KotlinCompile>().all {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_16.toString()
+val ignoredProjects = listOf("bootstrap")
+configure(allprojects.filter { it.name !in ignoredProjects }) {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+
+    tasks {
+        val javaVersion = JavaVersion.VERSION_17.toString()
+
+        compileKotlin {
+            kotlinOptions {
+                jvmTarget = javaVersion
+                sourceCompatibility = javaVersion
+                targetCompatibility = javaVersion
+            }
+        }
+
+        compileJava {
+            sourceCompatibility = javaVersion
+            targetCompatibility = javaVersion
+        }
     }
 }
