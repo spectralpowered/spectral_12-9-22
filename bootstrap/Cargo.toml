@@ -1,6 +1,27 @@
 [package]
-name = "spectral_bootstrap"
+name = "bootstrap"
 version = "1.0.0"
 edition = "2021"
+build = "build.rs"
+
+[features]
+debug_unchecked = []
+
+[lib]
+name = "bootstrap"
+crate-type = ["cdylib"]
 
 [dependencies]
+rucaja = "0.4.5"
+log = "0.4.14"
+simple_logger = "2.1.0"
+
+[target.'cfg(windows)'.dependencies.winapi]
+version = "0.3.9"
+features = [
+    "winnt",
+    "winuser",
+    "consoleapi",
+    "libloaderapi",
+    "processthreadsapi",
+]

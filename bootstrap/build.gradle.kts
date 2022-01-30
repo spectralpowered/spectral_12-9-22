@@ -4,7 +4,7 @@ plugins {
 
 rust {
     command = "cargo"
-    outputs = mutableMapOf("" to "spectral_bootstrap")
+    outputs = mutableMapOf("" to System.mapLibraryName("bootstrap"))
     outputDirectory = "bin/"
     profile = "release"
 }
