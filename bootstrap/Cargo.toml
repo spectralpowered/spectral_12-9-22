@@ -15,6 +15,7 @@ crate-type = ["cdylib"]
 rucaja = "0.4.5"
 log = "0.4.14"
 simple_logger = "2.1.0"
+dirs = "4.0.0"
 
 [target.'cfg(windows)'.dependencies.winapi]
 version = "0.3.9"

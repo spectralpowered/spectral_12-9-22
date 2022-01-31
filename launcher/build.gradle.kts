@@ -1,4 +1,5 @@
 plugins {
+    application
     id("fr.stardustenterprises.rust.importer")
 }
 
@@ -9,4 +10,16 @@ dependencies {
     implementation("org.tinylog:tinylog-impl:_")
     implementation("net.java.dev.jna:jna:_")
     implementation("net.java.dev.jna:jna-platform:_")
+}
+
+application {
+    mainClass.set("org.spectralpowered.launcher.Launcher")
+    mainClassName = "org.spectralpowered.launcher.Launcher"
+    applicationName = "Spectral"
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = application.mainClassName
+    }
 }

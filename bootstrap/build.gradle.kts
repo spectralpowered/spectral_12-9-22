@@ -8,3 +8,17 @@ rust {
     outputDirectory = "bin/"
     profile = "release"
 }
+
+tasks {
+    register<Copy>("copyDll") {
+        val dir = project(":launcher").projectDir.resolve("build/resources/main/bin/")
+        doFirst {
+            dir.resolve("bootstrap.dll").deleteRecursively()
+        }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        from(projectDir.resolve("target/release/bootstrap.dll"))
+        into(dir)
+    }
+
+    build.get().finalizedBy("copyDll")
+}

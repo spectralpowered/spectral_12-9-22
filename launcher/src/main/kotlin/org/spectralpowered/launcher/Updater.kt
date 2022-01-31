@@ -32,8 +32,8 @@ object Updater {
         /*
          * Check and update all required binary files.
          */
-        update("bootstrap.dll")
         update("spectral.jar")
+        update("bootstrap.dll")
 
         Logger.info("All files are up-to-date.")
     }

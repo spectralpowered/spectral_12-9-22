@@ -30,13 +30,15 @@ object SpectralPaths {
     val logDir = baseDir.resolve("log/")
     val configDir = baseDir.resolve("config/")
     val pluginDir = baseDir.resolve("plugin/")
+    val jreDir = baseDir.resolve("jre/")
 
     val allDirs = listOf(
         baseDir,
         binDir,
         logDir,
         configDir,
-        pluginDir
+        pluginDir,
+        jreDir
     )
 
     /**
