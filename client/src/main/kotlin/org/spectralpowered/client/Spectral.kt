@@ -18,22 +18,32 @@
 package org.spectralpowered.client
 
 import org.koin.core.context.startKoin
-import org.spectralpowered.common.DI
 import org.spectralpowered.common.get
+import org.spectralpowered.common.inject
+import org.spectralpowered.engine.ENGINE_MODULE
+import org.spectralpowered.engine.Engine
 import kotlin.system.exitProcess
 
 /**
  * Represents the main 'Spectral' client object which is the start/entrypoint to the injected api and plugin
  * components / internals.
  */
-open class Spectral {
+class Spectral {
+
+    private val engine: Engine by inject()
 
     /**
      * Called when the Spectral client is started. Responsible for initializing and setting up
      * everything required for Spectral to work.
      */
-    private fun init() {
+    private fun start() {
+        println("Starting Spectral client.")
 
+        /*
+         * Start the Spectral engine. This handles the JVM low level integration with the
+         * OSRS client memory and process.
+         */
+        engine.init()
     }
 
     /**
@@ -46,7 +56,8 @@ open class Spectral {
     companion object {
 
         private val DI_MODULES = listOf(
-            CLIENT_MODULE
+            CLIENT_MODULE,
+            ENGINE_MODULE
         )
 
         /**
@@ -54,7 +65,7 @@ open class Spectral {
          * and creates the [Spectral] singleton object within the dependency injection framework.
          */
         @JvmStatic
-        fun start() {
+        fun main() {
             /*
              * Start dependency injector.
              */
@@ -63,7 +74,7 @@ open class Spectral {
             /*
              * Initialized the started Spectral client core.
              */
-            get<Spectral>().init()
+            get<Spectral>().start()
         }
     }
 }

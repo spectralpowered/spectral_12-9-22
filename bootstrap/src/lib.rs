@@ -35,7 +35,7 @@ fn bootstrap() {
      */
     let class = JvmClass::get_class(&attachment, "org/spectralpowered/client/Spectral")
         .expect("Failed to find Spectral JVM class.");
-    let method = JvmMethod::get_static_method(&attachment, &class, "start", "()V")
+    let method = JvmMethod::get_static_method(&attachment, &class, "main", "()V")
         .expect("Failed to find start method in Spectral.class.");
     JvmMethod::call_static_void_method(&attachment, &class, &method, null());
 

@@ -1,6 +1,8 @@
 dependencies {
     implementation(project(":common"))
     implementation(project(":util"))
+    implementation(project(":natives"))
+    implementation(project(":engine"))
 }
 
 tasks {
