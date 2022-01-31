@@ -37,21 +37,23 @@ object Launcher {
          * Run initialization actions.
          */
         this.checkDirs()
+        Updater.run()
     }
 
     /**
      * Starts the Old School RuneScape NXT client from Steam and integrates
      * everything for spectral to attach to its process.
      */
-    private fun launch() {
-        Logger.info("Preparing Spectral...")
+    private fun start() {
+        Logger.info("Starting Spectral client...")
+
 
     }
 
     @JvmStatic
     fun main(args: Array<String>) {
         this.init()
-        this.launch()
+        this.start()
     }
 
     private fun checkDirs() {

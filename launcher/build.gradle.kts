@@ -1,23 +1,12 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 plugins {
-    id("org.jetbrains.compose")
+    id("fr.stardustenterprises.rust.importer")
 }
 
 dependencies {
     implementation(project(":common"))
-    implementation(compose.desktop.currentOs)
+    rustImport(project(":bootstrap"))
     implementation("org.tinylog:tinylog-api-kotlin:_")
     implementation("org.tinylog:tinylog-impl:_")
-}
-
-compose.desktop {
-    application {
-        mainClass = "org.spectralpowered.launcher.Launcher"
-        nativeDistributions {
-            targetFormats(TargetFormat.Msi, TargetFormat.Dmg, TargetFormat.Deb)
-            packageName = "Spectral"
-            packageVersion = "1.0.0"
-        }
-    }
+    implementation("net.java.dev.jna:jna:_")
+    implementation("net.java.dev.jna:jna-platform:_")
 }

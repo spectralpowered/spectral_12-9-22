@@ -1,65 +1,68 @@
-#![allow(non_snake_case)]
-#[link(name = "jvm")] extern "C" {}
-
-use rucaja::{Jvm, JvmAttachment, JvmClass, JvmMethod};
+use std::panic::catch_unwind;
+use std::thread;
 use simple_logger::SimpleLogger;
-use winapi::ctypes::c_void;
-use winapi::shared::minwindef::{BOOL, DWORD, HMODULE, LPVOID, TRUE};
+use winapi::shared::minwindef::{DWORD, HMODULE, LPVOID};
 use winapi::um::consoleapi::AllocConsole;
 use winapi::um::libloaderapi::DisableThreadLibraryCalls;
-use winapi::um::processthreadsapi::CreateThread;
 use winapi::um::winnt::DLL_PROCESS_ATTACH;
 
-fn new_console() {
+#[link(name = "jvm")] extern "C" {}
+
+fn create_console() {
     unsafe { AllocConsole(); }
     SimpleLogger::new().init().unwrap();
     log::info!("Created Spectral debug console window.");
 }
 
-fn create_jvm() {
-    log::info!("Creating Spectral client JVM.");
+fn bootstrap() {
+    log::info!("Bootstrapping Spectral JVM into current process.");
 
-    let jvm_options = [
-        "-Djava.class.path=D:\\Libraries\\Development\\RuneScape\\projects\\organizations\\SpectralPowered\\projects\\spectral\\client\\build\\libs\\spectral-client.jar"
-    ];
-    let jvm = Jvm::new(&jvm_options);
-    let jvm_attachment = JvmAttachment::new(jvm.jvm());
-
-    /*
-     * Invoke the Spectral client 'start' method in the JVM.
-     */
-    let class = JvmClass::get_class(&jvm_attachment, "org/spectralpowered/client/Spectral")
-        .expect("Failed to load JVM class.");
-
-    let method = JvmMethod::get_static_method(&jvm_attachment, &class, "start", "()V")
-        .expect("Failed to load JVM method.");
-
-    JvmMethod::call_static_void_method(&jvm_attachment, &class, &method, std::ptr::null());
-
-    log::info!("Successfully created and invoked Spectral client JVM.");
+    log::info!("Bootstrap completed successfully.");
 }
 
-unsafe extern "system" fn init(_hmodule: *mut c_void) -> u32 {
-    /*
-     * The 'create_console' fn should be commented out when compiling release binaries and only used
-     * while in an IDE development environment.
-     */
-    new_console();
+
+fn dll_attach() -> Result<(), ()> {
+    log::info!("Initializing bootstrap.");
 
     /*
-     * Create a new JVM with the Spectral client jar as the classpath.
+     * Create a debugging console window if needed while developing within an
+     * IDE environment.
      */
-    create_jvm();
+    create_console();
 
-    0
+    /*
+     * Create a JVM within the current process and bootstrap the Spectral JVM client and
+     * start it.
+     */
+    bootstrap();
+
+    /*
+     * Completed Spectral bootstrapper.
+     */
+    Ok(())
 }
 
-#[allow(non_snake_case)]
 #[no_mangle]
-pub unsafe extern "system" fn DllMain(hmodule: HMODULE, dwreason: DWORD, _: LPVOID) -> BOOL {
-    DisableThreadLibraryCalls(hmodule);
-    if dwreason == DLL_PROCESS_ATTACH {
-        CreateThread(std::ptr::null_mut(), 0, Some(init), hmodule as _, 0, std::ptr::null_mut());
+#[export_name = "DllMain"]
+pub extern "stdcall" fn dll_main(
+    module: HMODULE,
+    reason: DWORD,
+    lp_reserved: LPVOID
+) -> i32 {
+    if reason == DLL_PROCESS_ATTACH {
+        unsafe {
+            DisableThreadLibraryCalls(module);
+        }
+
+        thread::spawn(move || {
+            match catch_unwind(dll_attach) {
+                Err(_) => { log::error!("DLL injection failed!"); }
+                Ok(r) => {
+                    if let Some(e) = r.err() { log::error!("DLL injection failed with error: {:#?}", e); }
+                }
+            }
+        });
     }
-    TRUE
+
+    true as i32
 }
