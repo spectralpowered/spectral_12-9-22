@@ -1,3 +1,8 @@
+dependencies {
+    implementation(project(":common"))
+    implementation(project(":util"))
+}
+
 tasks {
     named<Jar>("jar") {
         archiveBaseName.set("spectral")

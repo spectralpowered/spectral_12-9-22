@@ -17,16 +17,37 @@
 
 package org.spectralpowered.client
 
-import java.awt.Dimension
-import javax.swing.JFrame
+import org.koin.core.context.startKoin
+import org.spectralpowered.common.DI
+import org.spectralpowered.common.get
+import kotlin.system.exitProcess
 
 /**
  * Represents the main 'Spectral' client object which is the start/entrypoint to the injected api and plugin
  * components / internals.
  */
-class Spectral {
+open class Spectral {
+
+    /**
+     * Called when the Spectral client is started. Responsible for initializing and setting up
+     * everything required for Spectral to work.
+     */
+    private fun init() {
+
+    }
+
+    /**
+     * Stops or shuts down the Spectral client.
+     */
+    fun stop() {
+        exitProcess(0)
+    }
 
     companion object {
+
+        private val DI_MODULES = listOf(
+            CLIENT_MODULE
+        )
 
         /**
          * The main static entrypoint which get invoked by the Spectral launcher bootstrap process. This then initializes,
@@ -34,12 +55,15 @@ class Spectral {
          */
         @JvmStatic
         fun start() {
-            val frame = JFrame("Test")
-            frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-            frame.preferredSize = Dimension(500, 500)
-            frame.size = frame.preferredSize
-            frame.setLocationRelativeTo(null)
-            frame.isVisible = true
+            /*
+             * Start dependency injector.
+             */
+            startKoin { modules(DI_MODULES) }
+
+            /*
+             * Initialized the started Spectral client core.
+             */
+            get<Spectral>().init()
         }
     }
 }

@@ -18,8 +18,8 @@ application {
     applicationName = "Spectral"
 }
 
-tasks.jar {
-    manifest {
-        attributes["Main-Class"] = application.mainClassName
+tasks {
+    named<JavaExec>("run") {
+        dependsOn(project(":client").tasks.build)
     }
 }
