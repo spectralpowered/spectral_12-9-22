@@ -17,7 +17,6 @@
 
 package org.spectralpowered.natives.memory
 
-import com.sun.jna.Memory
 import com.sun.jna.Pointer
 
 interface Module : Source, Addressed {

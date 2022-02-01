@@ -23,6 +23,7 @@ import com.sun.jna.platform.win32.Psapi.MODULEINFO
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinNT
 import com.sun.jna.ptr.IntByReference
+import org.spectralpowered.natives.memory.Module
 import org.spectralpowered.natives.memory.Process
 import org.spectralpowered.natives.memory.platform.windows.api.Kernel32
 import org.spectralpowered.natives.memory.platform.windows.api.Psapi
@@ -36,7 +37,7 @@ class WindowsProcess(override val id: Int, val handle: WinNT.HANDLE) : Process {
 
         val hModules = arrayOfNulls<WinDef.HMODULE>(4096)
         val needed = IntByReference()
-        if(Psapi.EnumProcessModules(handle, hModules, hModules.size, needed)) {
+        if(Psapi.EnumProcessModulesEx(handle, hModules, hModules.size, needed)) {
             for(i in 0..needed.value / Native.getNativeSize(WinDef.HMODULE::class.java)) {
                 val hModule = hModules[i] ?: continue
                 val info = MODULEINFO()

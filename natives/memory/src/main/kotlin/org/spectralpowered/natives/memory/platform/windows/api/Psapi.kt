@@ -18,9 +18,15 @@
 package org.spectralpowered.natives.memory.platform.windows.api
 
 import com.sun.jna.Native
+import com.sun.jna.platform.win32.WinDef
+import com.sun.jna.platform.win32.WinNT
+import com.sun.jna.ptr.IntByReference
 import com.sun.jna.win32.W32APIOptions
 import com.sun.jna.platform.win32.Psapi as JnaPsapi
 
 interface Psapi : JnaPsapi {
+    fun EnumProcessModulesEx(hProcess: WinNT.HANDLE, lphModule: Array<WinDef.HMODULE?>, cb: Int, lpcbNeeded: IntByReference, dwFilterFlag: Int = 0x003): Boolean
+    fun GetModuleBaseNameA(hProcess: WinNT.HANDLE, hModule: WinDef.HMODULE, lpBaseName: ByteArray, nSize: Int): Int
+
     companion object : Psapi by Native.load("psapi", Psapi::class.java, W32APIOptions.DEFAULT_OPTIONS) as Psapi
 }

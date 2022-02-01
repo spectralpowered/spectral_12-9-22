@@ -1,5 +1,3 @@
-mod spectral;
-
 use std::panic::catch_unwind;
 use std::ptr::null;
 use std::thread;

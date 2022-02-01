@@ -19,6 +19,7 @@ package org.spectralpowered.natives.memory.platform.windows
 
 import com.sun.jna.Native
 import com.sun.jna.platform.win32.Psapi.*
+import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinNT
 import org.spectralpowered.natives.memory.Module
 import org.spectralpowered.natives.memory.platform.windows.api.Psapi
@@ -26,13 +27,13 @@ import org.spectralpowered.natives.memory.platform.windows.api.Psapi
 class WindowsModule(
     override val address: Long,
     override val process: WindowsProcess,
-    val handle: WinNT.HANDLE,
+    val hModule: WinDef.HMODULE,
     val info: MODULEINFO
 ) : Module {
 
     override val name by lazy {
         val baseName = ByteArray(256)
-        Psapi.GetModuleFileNameExA(process.handle, handle, baseName, baseName.size)
+        Psapi.GetModuleBaseNameA(process.handle, hModule, baseName, baseName.size)
         Native.toString(baseName)!!
     }
 

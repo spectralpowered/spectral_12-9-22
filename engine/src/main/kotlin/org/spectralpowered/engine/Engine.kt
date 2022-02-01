@@ -17,24 +17,25 @@
 
 package org.spectralpowered.engine
 
+import org.spectralpowered.natives.memory.Module
+import org.spectralpowered.natives.memory.Process
+import org.spectralpowered.natives.memory.openProcessByName
 import org.spectralpowered.util.retry
 
 class Engine {
 
+    lateinit var process: Process private set
+    lateinit var osrs: Module private set
+
     fun init() {
-        println("Initializing Spectral engine.")
-
-        /*
-         * Attach to process.
-         */
-        retry(128L) {
-        }
+        println("Attempting to attach to Old School RuneScape client process memory...")
 
         retry(128L) {
+            process = openProcessByName("osclient.exe")!!
+            process.loadModules()
+            osrs = process.modules["osclient.exe"]!!
         }
 
-        println("Successfully attached to process ID:.")
+        println("Successfully attached to process ID: ${process.id}.")
     }
-
-
 }

@@ -22,3 +22,6 @@ import org.spectralpowered.natives.memory.platform.windows.Windows
 
 fun openProcessById(processId: Int, accessFlags: Int = PROCESS_ALL_ACCESS): Process?
     = Windows.openProcess(processId, accessFlags)
+
+fun openProcessByName(processName: String, accessFlags: Int = PROCESS_ALL_ACCESS): Process?
+    = Windows.openProcess(processName, accessFlags)
