@@ -15,26 +15,5 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.natives.memory.ext
 
-import org.spectralpowered.util.retry
-
-class Engine {
-
-    fun init() {
-        println("Initializing Spectral engine.")
-
-        /*
-         * Attach to process.
-         */
-        retry(128L) {
-        }
-
-        retry(128L) {
-        }
-
-        println("Successfully attached to process ID:.")
-    }
-
-
-}

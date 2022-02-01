@@ -15,26 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.natives.memory
 
-import org.spectralpowered.util.retry
+import com.sun.jna.Memory
+import com.sun.jna.Pointer
 
-class Engine {
+interface Module : Source, Addressed {
 
-    fun init() {
-        println("Initializing Spectral engine.")
+    val process: Process
 
-        /*
-         * Attach to process.
-         */
-        retry(128L) {
-        }
+    val name: String
 
-        retry(128L) {
-        }
+    val size: Long
 
-        println("Successfully attached to process ID:.")
-    }
+    override fun read(address: Pointer, data: Pointer, length: Int)
+        = process.read(address, data, length)
 
+    override fun read(address: Long, data: Pointer, length: Int)
+        = process.read(address, data, length)
 
+    override fun write(address: Pointer, data: Pointer, length: Int)
+        = process.write(address, data, length)
+
+    override fun write(address: Long, data: Pointer, length: Int)
+        = process.write(address, data, length)
 }

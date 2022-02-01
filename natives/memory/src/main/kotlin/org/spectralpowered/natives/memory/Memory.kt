@@ -15,26 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.natives.memory
 
-import org.spectralpowered.util.retry
+import com.sun.jna.platform.win32.WinNT.PROCESS_ALL_ACCESS
+import org.spectralpowered.natives.memory.platform.windows.Windows
 
-class Engine {
-
-    fun init() {
-        println("Initializing Spectral engine.")
-
-        /*
-         * Attach to process.
-         */
-        retry(128L) {
-        }
-
-        retry(128L) {
-        }
-
-        println("Successfully attached to process ID:.")
-    }
-
-
-}
+fun openProcessById(processId: Int, accessFlags: Int = PROCESS_ALL_ACCESS): Process?
+    = Windows.openProcess(processId, accessFlags)

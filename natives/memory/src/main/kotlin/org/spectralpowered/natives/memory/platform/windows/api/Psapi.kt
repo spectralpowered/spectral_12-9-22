@@ -15,26 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.natives.memory.platform.windows.api
 
-import org.spectralpowered.util.retry
+import com.sun.jna.Native
+import com.sun.jna.win32.W32APIOptions
+import com.sun.jna.platform.win32.Psapi as JnaPsapi
 
-class Engine {
-
-    fun init() {
-        println("Initializing Spectral engine.")
-
-        /*
-         * Attach to process.
-         */
-        retry(128L) {
-        }
-
-        retry(128L) {
-        }
-
-        println("Successfully attached to process ID:.")
-    }
-
-
+interface Psapi : JnaPsapi {
+    companion object : Psapi by Native.load("psapi", Psapi::class.java, W32APIOptions.DEFAULT_OPTIONS) as Psapi
 }

@@ -15,26 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.natives.memory
 
-import org.spectralpowered.util.retry
+interface Process : Source {
 
-class Engine {
+    val id: Int
 
-    fun init() {
-        println("Initializing Spectral engine.")
+    val modules: Map<String, Module>
 
-        /*
-         * Attach to process.
-         */
-        retry(128L) {
-        }
-
-        retry(128L) {
-        }
-
-        println("Successfully attached to process ID:.")
-    }
-
+    fun loadModules()
 
 }

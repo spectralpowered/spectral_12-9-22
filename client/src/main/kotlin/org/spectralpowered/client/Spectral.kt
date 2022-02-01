@@ -38,6 +38,8 @@ class Spectral {
     private val engine: Engine by inject()
     private val ui: SpectralUI by inject()
 
+    external fun helloFromRust(name: String)
+
     /**
      * Called when the Spectral client is started. Responsible for initializing and setting up
      * everything required for Spectral to work.
@@ -55,6 +57,8 @@ class Spectral {
          * Launch the Spectral UI.
          */
         ui.open()
+
+        helloFromRust("Kyle")
     }
 
     /**

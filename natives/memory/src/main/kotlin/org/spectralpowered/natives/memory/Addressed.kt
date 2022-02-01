@@ -15,26 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.natives.memory
 
-import org.spectralpowered.util.retry
+interface Addressed {
 
-class Engine {
+    val address: Long
 
-    fun init() {
-        println("Initializing Spectral engine.")
-
-        /*
-         * Attach to process.
-         */
-        retry(128L) {
-        }
-
-        retry(128L) {
-        }
-
-        println("Successfully attached to process ID:.")
-    }
-
-
+    fun offset(offset: Long) = address + offset
 }

@@ -15,26 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.natives.memory
 
-import org.spectralpowered.util.retry
+import com.sun.jna.Pointer
 
-class Engine {
+object PointerCache {
 
-    fun init() {
-        println("Initializing Spectral engine.")
+    private val pointer = ThreadLocal.withInitial { Pointer(0) }
 
-        /*
-         * Attach to process.
-         */
-        retry(128L) {
-        }
-
-        retry(128L) {
-        }
-
-        println("Successfully attached to process ID:.")
+    operator fun get(address: Long): Pointer {
+        val pointer = pointer.get()
+        Pointer.nativeValue(pointer, address)
+        return pointer
     }
-
-
 }

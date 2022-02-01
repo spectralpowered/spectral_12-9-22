@@ -15,26 +15,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.natives.memory.platform.windows
 
-import org.spectralpowered.util.retry
+import com.sun.jna.Native
+import com.sun.jna.platform.win32.Psapi.*
+import com.sun.jna.platform.win32.WinNT
+import org.spectralpowered.natives.memory.Module
+import org.spectralpowered.natives.memory.platform.windows.api.Psapi
 
-class Engine {
+class WindowsModule(
+    override val address: Long,
+    override val process: WindowsProcess,
+    val handle: WinNT.HANDLE,
+    val info: MODULEINFO
+) : Module {
 
-    fun init() {
-        println("Initializing Spectral engine.")
-
-        /*
-         * Attach to process.
-         */
-        retry(128L) {
-        }
-
-        retry(128L) {
-        }
-
-        println("Successfully attached to process ID:.")
+    override val name by lazy {
+        val baseName = ByteArray(256)
+        Psapi.GetModuleFileNameExA(process.handle, handle, baseName, baseName.size)
+        Native.toString(baseName)!!
     }
 
+    override val size: Long = info.SizeOfImage.toLong()
 
 }
