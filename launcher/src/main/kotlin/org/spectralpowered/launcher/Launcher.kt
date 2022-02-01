@@ -38,6 +38,23 @@ object Launcher {
         Logger.info("Initializing...")
 
         /*
+         * Check if there is already an Old School RuneScape client process running. If so, terminate it before trying to
+         * launch the Spectral client.
+         */
+        val proc = Runtime.getRuntime()
+            .exec(arrayOf("cmd", "/c", "tasklist /FI \"IMAGENAME eq osclient.exe\""))
+        proc.waitFor()
+        val lines = proc.inputStream.let { InputStreamReader(it) }.readText().split("\n")
+        if(lines.any { it.contains("osclient.exe") }) {
+            Logger.info("Old School RuneScape client process is running! Terminating before launch.")
+
+            Runtime.getRuntime()
+                .exec(arrayOf("cmd", "/c", "taskkill /F /IM osclient.exe"))
+                .waitFor()
+            Thread.sleep(3000)
+        }
+
+        /*
          * Run initialization actions.
          */
         checkDirs()

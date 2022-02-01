@@ -20,6 +20,7 @@ package org.spectralpowered.common
 import org.koin.core.component.KoinScopeComponent
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
+import org.koin.core.qualifier.qualifier
 import org.koin.mp.KoinPlatformTools
 
 typealias Scoped = KoinScopeComponent
@@ -40,7 +41,13 @@ inline fun <reified T : Any> Any.inject(
     noinline parameters: ParametersDefinition? = null
 ): Lazy<T> = lazy(mode) { get(qualifier, parameters) }
 
-inline fun <reified T : Any> inject(
+inline fun <reified T : Any> get(
     qualifier: Qualifier? = null,
     noinline parameters: ParametersDefinition? = null
 ): T = DI.get(qualifier, parameters)
+
+inline fun <reified T : Any> inject(
+    qualifier: Qualifier? = null,
+    mode: LazyThreadSafetyMode = KoinPlatformTools.defaultLazyMode(),
+    noinline parameters: ParametersDefinition? = null
+): Lazy<T> = lazy(mode) { get(qualifier, parameters) }

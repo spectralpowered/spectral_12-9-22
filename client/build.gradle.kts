@@ -1,8 +1,17 @@
+plugins {
+    id("org.jetbrains.compose")
+    `java-library`
+}
+
 dependencies {
     implementation(project(":common"))
     implementation(project(":util"))
     implementation(project(":natives"))
     implementation(project(":engine"))
+    implementation(compose.desktop.currentOs)
+    implementation(compose.materialIconsExtended)
+    implementation("com.formdev:flatlaf:_")
+    implementation("com.formdev:flatlaf-intellij-themes:_")
 }
 
 tasks {

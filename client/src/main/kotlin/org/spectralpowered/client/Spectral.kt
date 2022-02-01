@@ -18,10 +18,15 @@
 package org.spectralpowered.client
 
 import org.koin.core.context.startKoin
+import org.spectralpowered.client.ui.SpectralUI
+import org.spectralpowered.common.SpectralPaths
 import org.spectralpowered.common.get
 import org.spectralpowered.common.inject
 import org.spectralpowered.engine.ENGINE_MODULE
 import org.spectralpowered.engine.Engine
+import java.io.File
+import java.io.FileOutputStream
+import java.nio.channels.Channels
 import kotlin.system.exitProcess
 
 /**
@@ -31,6 +36,7 @@ import kotlin.system.exitProcess
 class Spectral {
 
     private val engine: Engine by inject()
+    private val ui: SpectralUI by inject()
 
     /**
      * Called when the Spectral client is started. Responsible for initializing and setting up
@@ -44,12 +50,18 @@ class Spectral {
          * OSRS client memory and process.
          */
         engine.init()
+
+        /*
+         * Launch the Spectral UI.
+         */
+        ui.open()
     }
 
     /**
      * Stops or shuts down the Spectral client.
      */
     fun stop() {
+        println("Stopping Spectral client.")
         exitProcess(0)
     }
 
@@ -66,6 +78,8 @@ class Spectral {
          */
         @JvmStatic
         fun main() {
+            System.load(SpectralPaths.binDir.resolve("bootstrap.dll").absolutePath)
+
             /*
              * Start dependency injector.
              */
