@@ -15,18 +15,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.memory.platform.windows.api
+package org.spectralpowered.natives.memory.windows
 
 import com.sun.jna.Native
+import com.sun.jna.platform.win32.Psapi.MODULEINFO
 import com.sun.jna.platform.win32.WinDef
-import com.sun.jna.platform.win32.WinNT
-import com.sun.jna.ptr.IntByReference
-import com.sun.jna.win32.W32APIOptions
-import com.sun.jna.platform.win32.Psapi as JnaPsapi
+import org.spectralpowered.natives.memory.Module
+import org.spectralpowered.natives.memory.windows.api.PsapiEx
 
-interface Psapi : JnaPsapi {
-    fun EnumProcessModulesEx(hProcess: WinNT.HANDLE, lphModule: Array<WinDef.HMODULE?>, cb: Int, lpcbNeeded: IntByReference, dwFilterFlag: Int = 0x003): Boolean
-    fun GetModuleBaseNameA(hProcess: WinNT.HANDLE, hModule: WinDef.HMODULE, lpBaseName: ByteArray, nSize: Int): Int
+/**
+ * Represents a module of a Windows process.
+ */
+class WindowsModule(override val address: Long, override val process: WindowsProcess,
+                    val handle: WinDef.HMODULE, val info: MODULEINFO) : Module {
 
-    companion object : Psapi by Native.load("psapi", Psapi::class.java, W32APIOptions.DEFAULT_OPTIONS) as Psapi
+    override val name by lazy {
+        val baseName = ByteArray(256)
+        PsapiEx.GetModuleBaseNameA(process.handle, handle, baseName, baseName.size)
+        Native.toString(baseName)!!
+    }
+
+    override val size = info.SizeOfImage.toLong()
+
 }

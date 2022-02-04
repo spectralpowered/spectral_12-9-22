@@ -15,12 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.memory.platform.windows.api
+package org.spectralpowered.natives.memory.windows.api
 
 import com.sun.jna.Native
+import com.sun.jna.platform.win32.Psapi
+import com.sun.jna.platform.win32.WinDef
+import com.sun.jna.platform.win32.WinNT
+import com.sun.jna.ptr.IntByReference
 import com.sun.jna.win32.W32APIOptions
-import com.sun.jna.platform.win32.Kernel32 as JnaKernel32
+import java.lang.System.load
 
-interface Kernel32 : JnaKernel32 {
-    companion object : Kernel32 by Native.load("kernel32", Kernel32::class.java, W32APIOptions.DEFAULT_OPTIONS) as Kernel32
+interface PsapiEx : Psapi {
+    fun EnumProcessModulesEx(hProcess: WinNT.HANDLE, lphModule: Array<WinDef.HMODULE?>, cb: Int, lpcNeeded: IntByReference, dwFilterFlag: Int = FilterFlags.LIST_MODULES_ALL): Boolean
+    fun GetModuleBaseNameA(hProcess: WinNT.HANDLE, hModule: WinDef.HMODULE, lpBaseName: ByteArray, nSize: Int): Int
+
+    companion object : PsapiEx by Native.load("psapi", PsapiEx::class.java, W32APIOptions.DEFAULT_OPTIONS) as PsapiEx
 }

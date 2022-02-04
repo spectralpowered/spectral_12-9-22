@@ -1,4 +1,5 @@
 dependencies {
-    api(project(":natives"))
-    implementation(project(":util"))
+    api("net.java.dev.jna:jna:_")
+    api("net.java.dev.jna:jna-platform:_")
+    api("it.unimi.dsi:fastutil:_")
 }

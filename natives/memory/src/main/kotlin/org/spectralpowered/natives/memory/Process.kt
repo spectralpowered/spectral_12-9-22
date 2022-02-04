@@ -17,12 +17,37 @@
 
 package org.spectralpowered.natives.memory
 
+/**
+ * Rather than be useful and upfront, let's go the scenic route.
+ *
+ * Ensure of the following:
+ *     * You understand what an operating system is
+ *     * You're familiar with said operating system's process manager
+ *
+ * K, we're good.
+ *
+ * _**At heart**_, this is a magical time-travel vortex that will take you to the next dimension.
+ *
+ * _**At soul**_, this is like a butler that doesn't care what you ask because
+ * he hires his own butler who actually fulfills your requests.
+ */
 interface Process : Source {
 
+    /**
+     * The processes' special snowflake, thumbprint, or whatever you wanna' call it.
+     */
     val id: Int
 
+    /**
+     * A map of module names to the modules themselves.
+     */
     val modules: Map<String, Module>
 
+    /**
+     * Loads the modules into the module map.
+     *
+     * This function can be used to reload the modules as well.
+     */
     fun loadModules()
 
 }

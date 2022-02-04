@@ -15,31 +15,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.memory
+package org.spectralpowered.natives.memory.windows.api
 
-import com.sun.jna.Pointer
 
 /**
- * Lock-free caching for [Pointer][com.sun.jna.Pointer]s.
+ * Filter flags used for module listing.
  */
-object PointerCache {
+object FilterFlags {
 
     /**
-     * Thread-local reusable pointer.
+     * List the 32-bit modules.
      */
-    private val pointer = ThreadLocal.withInitial { Pointer(0) }
+    const val LIST_MODULES_32BIT = 0x01
 
     /**
-     * Returns a pointer of the specified address.
-     *
-     * The pointer should be used immediately as it will be reused.
-     *
-     * @param address The native address for the returned pointer.
+     * List the 64-bit modules.
      */
-    operator fun get(address: Long): Pointer {
-        val pointer = pointer.get()
-        Pointer.nativeValue(pointer, address)
-        return pointer
-    }
+    const val LIST_MODULES_64BIT = 0x02
+
+    /**
+     * List all modules.
+     */
+    const val LIST_MODULES_ALL = 0x03
+
+    /**
+     * Use the default behavior.
+     */
+    const val LIST_MODULES_DEFAULT = 0x0
 
 }

@@ -15,13 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.memory
+package org.spectralpowered.natives.offset
 
-import com.sun.jna.platform.win32.WinNT.PROCESS_ALL_ACCESS
-import org.spectralpowered.natives.memory.platform.windows.Windows
+data class RepeatedInt(val value: Int, val repeats: Int)
 
-fun openProcessById(processId: Int, accessFlags: Int = PROCESS_ALL_ACCESS): Process?
-    = Windows.openProcess(processId, accessFlags)
-
-fun openProcessByName(processName: String, accessFlags: Int = PROCESS_ALL_ACCESS): Process?
-    = Windows.openProcess(processName, accessFlags)
+operator fun Int.get(repeats: Int) = RepeatedInt(this, repeats)

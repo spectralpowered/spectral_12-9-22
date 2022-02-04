@@ -15,28 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.memory.platform.windows
+package org.spectralpowered.natives.offset
 
-import com.sun.jna.Native
-import com.sun.jna.platform.win32.Psapi.*
-import com.sun.jna.platform.win32.WinDef
-import com.sun.jna.platform.win32.WinNT
 import org.spectralpowered.natives.memory.Module
-import org.spectralpowered.natives.memory.platform.windows.api.Psapi
 
-class WindowsModule(
-    override val address: Long,
-    override val process: WindowsProcess,
-    val hModule: WinDef.HMODULE,
-    val info: MODULEINFO
-) : Module {
-
-    override val name by lazy {
-        val baseName = ByteArray(256)
-        Psapi.GetModuleBaseNameA(process.handle, hModule, baseName, baseName.size)
-        Native.toString(baseName)!!
-    }
-
-    override val size: Long = info.SizeOfImage.toLong()
-
-}
+operator fun Module.invoke(
+    patternOffset: Long = 0L,
+    addressOffset: Long = 4L,
+    read: Boolean = true,
+    subtract: Boolean = true
+) = Pattern(
+    this,
+    patternOffset,
+    addressOffset,
+    read,
+    subtract
+)

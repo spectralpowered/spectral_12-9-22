@@ -15,32 +15,77 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.memory.ext
+package org.spectralpowered.natives.memory
 
-import org.spectralpowered.natives.memory.Source
+import com.sun.jna.Pointer
+import org.spectralpowered.natives.memory.ext.unsign
 
-inline operator fun <reified T : Number> Source.get(address: Long, offset: Long = 0L): T {
-    return when(T::class) {
-        Byte::class -> read(address, 1)?.getByte(offset)
-        Short::class -> read(address, 2)?.getShort(offset)
-        Char::class -> read(address, 2)?.getChar(offset)
-        Int::class -> read(address, 4)?.getInt(offset)
-        Float::class -> read(address, 4)?.getFloat(offset)
-        Double::class -> read(address, 8)?.getDouble(offset)
-        Long::class -> read(address, 8)?.getLong(offset)
-        else -> throw IllegalAccessError("Failed to read memory at address: 0x${address.toString(16)}. Invalid primitive type.")
-    } as T? ?: 0 as T
+/**
+ * Writes to the source at the specified address using a supplied memory.
+ *
+ * @param address The native address to write to.
+ * @param bytes The amount of bytes for the supplied memory.
+ * @param writeBody Applies the write to the data.
+ */
+inline fun Source.write(address: Long, bytes: Int, writeBody: Pointer.() -> Unit) {
+    val resource = MemoryCache[bytes]
+    resource.writeBody()
+    write(address, resource)
 }
 
-inline operator fun <reified T : Number> Source.set(address: Long, value: T) {
-    when(T::class) {
-        Byte::class -> write(address, 1) { setByte(0, value.toByte()) }
-        Short::class -> write(address, 2) { setShort(0, value.toShort()) }
-        Char::class -> write(address, 2) { setChar(0, value.toChar()) }
-        Int::class -> write(address, 4) { setInt(0, value.toInt()) }
-        Float::class -> write(address, 4) { setFloat(0, value.toFloat()) }
-        Double::class -> write(address, 8) { setDouble(0, value.toDouble()) }
-        Long::class -> write(address, 8) { setLong(0, value.toLong()) }
-        else -> throw IllegalAccessError("Failed to write memory at address 0x${address.toString(16)}. Invalid primitive type.")
-    }
-}
+/**
+ * Writes to the source at the specified address using a supplied memory.
+ *
+ * @param address The native address to write to.
+ * @param bytes The amount of bytes for the supplied memory.
+ * @param writeBody Applies the write to the data.
+ */
+inline fun Source.write(address: Int, bytes: Int, writeBody: Pointer.() -> Unit)
+        = write(address.toLong(), bytes, writeBody)
+
+/**
+ * Reads from the source at the specified address with an implicit return type.
+ *
+ * @param address The native address to read from.
+ * @param offset The offset in bytes off the native address.
+ * @param T The implicit return type of one of the following:
+ *                 * Byte
+ *                 * Short
+ *                 * Char
+ *                 * Int
+ *                 * Long
+ *                 * Float
+ *                 * Double
+ *                 * Boolean
+ */
+inline operator fun <reified T : Any> Source.get(address: Long, offset: Long = 0) = when (T::class.java) {
+    java.lang.Byte::class.java -> byte(address, offset)
+    java.lang.Short::class.java -> short(address, offset)
+    java.lang.Character::class.java -> char(address, offset)
+    java.lang.Integer::class.java -> int(address, offset)
+    java.lang.Long::class.java -> long(address, offset)
+    java.lang.Float::class.java -> float(address, offset)
+    java.lang.Double::class.java -> double(address, offset)
+    java.lang.Boolean::class.java -> boolean(address, offset)
+    else -> throw IllegalArgumentException()
+} as T
+
+/**
+ * Reads from the source at the specified address with an implicit return type.
+ *
+ * @param address The native address to read from.
+ * @param offset The offset in bytes off the native address.
+ * @param T The implicit return type of one of the following:
+ *                 * Byte
+ *                 * Short
+ *                 * Char
+ *                 * Int
+ *                 * Long
+ *                 * Float
+ *                 * Double
+ *                 * Boolean
+ */
+inline operator fun <reified T : Any> Source.get(address: Int, offset: Long = 0): T
+        = get(address.toLong(), offset)
+
+fun Source.uint(address: Long, offset: Long = 0L) = int(address, offset).unsign()

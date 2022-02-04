@@ -15,34 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.natives.offset
 
+import it.unimi.dsi.fastutil.bytes.ByteArrayList
 import org.spectralpowered.natives.memory.Module
-import org.spectralpowered.natives.memory.Process
-import org.spectralpowered.natives.memory.processByName
-import org.spectralpowered.util.retry
 
+class Pattern(
+    val module: Module,
+    val patternOffset: Long,
+    val addressOffset: Long,
+    val read: Boolean,
+    val subtract: Boolean
+) {
 
-object Engine {
+    operator fun invoke(vararg pattern: Any): Offset {
+        val bytes = ByteArrayList()
 
-    lateinit var process: Process private set
-    lateinit var module: Module private set
-
-    fun init() {
-        println("Attaching to Old School RuneScape client memory.")
-
-        retry(128L) {
-            process = processByName("osclient.exe")!!
-            process.loadModules()
-            module = process.modules["osclient.exe"]!!
+        for(mask in pattern) when(mask) {
+            is Number -> bytes.add(mask.toByte())
+            is RepeatedInt -> repeat(mask.repeats) { bytes.add(mask.value.toByte()) }
         }
 
-        /*
-         * Scan and calculate all offset patterns.
-         */
-        Offsets.scan()
-
-        println("Successfully attached to process ID: ${process.id}.")
+        return Offset(
+            module,
+            patternOffset,
+            addressOffset,
+            read,
+            subtract,
+            bytes.toByteArray()
+        )
     }
-
 }

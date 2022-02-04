@@ -15,12 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.memory.platform.windows.api
+package org.spectralpowered.natives.memory.ext
 
-import com.sun.jna.Native
-import com.sun.jna.win32.W32APIOptions
-import com.sun.jna.platform.win32.User32 as JnaUser32
+/**
+ * Converts to an unsigned byte represented in an int.
+ */
+fun Byte.unsign() = java.lang.Byte.toUnsignedInt(this)
 
-interface User32 : JnaUser32 {
-    companion object : User32 by Native.load("user32", User32::class.java, W32APIOptions.DEFAULT_OPTIONS) as User32
-}
+/**
+ * Converts to an unsigned short represented in an int.
+ */
+fun Short.unsign() = java.lang.Short.toUnsignedInt(this)
+
+/**
+ * Converts to an unsigned int represented in a long.
+ */
+fun Int.unsign() = Integer.toUnsignedLong(this)

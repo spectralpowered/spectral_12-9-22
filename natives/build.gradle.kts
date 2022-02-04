@@ -1,4 +1,4 @@
 dependencies {
-    api("net.java.dev.jna:jna:_")
-    api("net.java.dev.jna:jna-platform:_")
+    api(project(":natives:memory"))
+    api(project(":natives:offset"))
 }

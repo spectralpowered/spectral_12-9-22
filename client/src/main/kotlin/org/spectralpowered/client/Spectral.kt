@@ -24,9 +24,6 @@ import org.spectralpowered.common.get
 import org.spectralpowered.common.inject
 import org.spectralpowered.engine.ENGINE_MODULE
 import org.spectralpowered.engine.Engine
-import java.io.File
-import java.io.FileOutputStream
-import java.nio.channels.Channels
 import kotlin.system.exitProcess
 
 /**
@@ -35,10 +32,7 @@ import kotlin.system.exitProcess
  */
 class Spectral {
 
-    private val engine: Engine by inject()
     private val ui: SpectralUI by inject()
-
-    external fun helloFromRust(name: String)
 
     /**
      * Called when the Spectral client is started. Responsible for initializing and setting up
@@ -51,14 +45,12 @@ class Spectral {
          * Start the Spectral engine. This handles the JVM low level integration with the
          * OSRS client memory and process.
          */
-        engine.init()
+        Engine.init()
 
         /*
          * Launch the Spectral UI.
          */
         ui.open()
-
-        helloFromRust("Kyle")
     }
 
     /**
