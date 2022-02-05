@@ -19,8 +19,7 @@ package org.spectralpowered.engine.game
 
 import org.spectralpowered.engine.Offsets.dwClient
 import org.spectralpowered.engine.Offsets.dwLoginState
-import org.spectralpowered.engine.util.field
-import org.spectralpowered.engine.util.global
+import org.spectralpowered.engine.util.*
 import org.spectralpowered.natives.memory.Addressed
 
 open class RSClient(override val address: Long) : Addressed {

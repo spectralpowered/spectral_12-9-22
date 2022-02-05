@@ -17,6 +17,8 @@
 
 package org.spectralpowered.engine.util
 
+import com.sun.jna.Function
+import com.sun.jna.Pointer
 import org.spectralpowered.engine.Engine
 import org.spectralpowered.natives.memory.Addressed
 import org.spectralpowered.natives.memory.ext.get
