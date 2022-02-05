@@ -36,6 +36,8 @@ class WindowsProcess(override val id: Int, val handle: WinNT.HANDLE) : Process {
 
     private val modulesMap = Collections.synchronizedMap(Object2ObjectArrayMap<String, WindowsModule>())
 
+    override val address: Long = Pointer.nativeValue(handle.pointer)
+
     override fun loadModules() {
         modulesMap.clear()
 
@@ -48,7 +50,7 @@ class WindowsProcess(override val id: Int, val handle: WinNT.HANDLE) : Process {
                 if (Psapi.INSTANCE.GetModuleInformation(handle, hModule, info, info.size())) {
                     val address = Pointer.nativeValue(hModule.pointer)
                     val module = WindowsModule(address, this, hModule, info)
-                    modulesMap.put(module.name, module)
+                    modulesMap[module.name] = module
                 }
             }
         }

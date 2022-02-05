@@ -17,9 +17,10 @@
 
 package org.spectralpowered.engine
 
-import org.spectralpowered.natives.offset.invoke
+import org.spectralpowered.common.get
 import org.spectralpowered.engine.Engine.module
 import org.spectralpowered.natives.offset.get
+import org.spectralpowered.natives.offset.invoke
 import kotlin.reflect.full.memberProperties
 
 object Offsets {
@@ -28,13 +29,15 @@ object Offsets {
      * ===== GLOBAL OFFSETS =====
      */
 
-    val dwLoginStep by module(2, 8)(0xC7, 0x05, 0[8], 0x48, 0x8B, 0xCF, 0x48, 0x83, 0xC4, 0[1])
+    val dwLoginState by module(2, 8)(0xC7, 0x05, 0[8], 0x48, 0x8B, 0xCF, 0x48, 0x83, 0xC4, 0[1])
+    val dwClient by module(3)(0x4C, 0x8B, 0x3D, 0[4], 0x33, 0xFF)
 
     /**
      * ===== FUNCTION OFFSETS =====
      */
 
-    internal fun scan() {
+
+    fun scan() {
         val fields = this::class.memberProperties.toList()
         var resolvedCount = 0
 

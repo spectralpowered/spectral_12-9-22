@@ -6,8 +6,8 @@ plugins {
 dependencies {
     implementation(project(":common"))
     implementation(project(":util"))
-    implementation(project(":natives"))
     implementation(project(":engine"))
+    implementation(project(":natives"))
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
     implementation("com.formdev:flatlaf:_")

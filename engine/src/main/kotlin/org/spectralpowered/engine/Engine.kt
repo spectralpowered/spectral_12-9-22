@@ -33,6 +33,9 @@ object Engine {
 
         retry(128L) {
             process = processByName("osclient.exe")!!
+        }
+
+        retry(128L) {
             process.loadModules()
             module = process.modules["osclient.exe"]!!
         }
@@ -44,5 +47,4 @@ object Engine {
 
         println("Successfully attached to process ID: ${process.id}.")
     }
-
 }

@@ -15,10 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.natives.memory
+package org.spectralpowered.natives.memory.ext
 
 import com.sun.jna.Pointer
-import org.spectralpowered.natives.memory.ext.unsign
+import org.spectralpowered.natives.memory.MemoryCache
+import org.spectralpowered.natives.memory.Source
 
 /**
  * Writes to the source at the specified address using a supplied memory.
@@ -88,4 +89,33 @@ inline operator fun <reified T : Any> Source.get(address: Long, offset: Long = 0
 inline operator fun <reified T : Any> Source.get(address: Int, offset: Long = 0): T
         = get(address.toLong(), offset)
 
+/**
+ * Sets the source at the specified address with an offset's value.
+ *
+ * @receiver Source
+ * @param address Long
+ * @param offset Long
+ * @param value T
+ */
+inline operator fun <reified T : Any> Source.set(address: Long = this.address, offset: Long = 0L, value: T) {
+    when(T::class) {
+        Byte::class -> this[address + offset] = value as Byte
+        Short::class -> this[address + offset] = value as Short
+        Char::class -> this[address + offset] = value as Char
+        Int::class -> this[address + offset] = value as Int
+        Float::class -> this[address + offset] = value as Float
+        Double::class -> this[address + offset] = value as Double
+        Long::class -> this[address + offset] = value as Long
+        else -> throw IllegalArgumentException("Failed to set value of type: ${T::class.simpleName} to memory.")
+    }
+}
+
+/**
+ * Reads an unsigned integer from and address + and optional offset.
+ *
+ * @receiver Source
+ * @param address Long
+ * @param offset Long
+ * @return Long
+ */
 fun Source.uint(address: Long, offset: Long = 0L) = int(address, offset).unsign()

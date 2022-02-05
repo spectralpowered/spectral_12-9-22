@@ -22,7 +22,7 @@ import com.sun.jna.Pointer
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap
 import org.spectralpowered.natives.memory.Addressed
 import org.spectralpowered.natives.memory.Module
-import org.spectralpowered.natives.memory.uint
+import org.spectralpowered.natives.memory.ext.uint
 import kotlin.reflect.KProperty
 
 class Offset(

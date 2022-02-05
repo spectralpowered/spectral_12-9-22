@@ -20,11 +20,12 @@ package org.spectralpowered.natives.memory
 import com.sun.jna.Memory
 import com.sun.jna.Pointer
 import org.spectralpowered.natives.memory.ext.unsign
+import org.spectralpowered.natives.memory.ext.write
 
 /**
  * A native source which can be read from and written to with native addresses.
  */
-interface Source {
+interface Source : Addressed {
 
     /**
      * Reads at the specified native address into the specified data.
@@ -75,26 +76,6 @@ interface Source {
      */
     fun read(address: Int, memory: Memory, bytesToRead: Int = memory.size().toInt())
             = read(address.toLong(), memory, bytesToRead)
-
-    /**
-     * Reads at the specified native address into the specified struct.
-     *
-     * @param address The native address to read from.
-     * @param struct The struct to read into.
-     * @param bytesToRead The amount of bytes to read. (By default this is the size of the struct.)
-     */
-    fun read(address: Long, struct: Struct, bytesToRead: Int = struct.size())
-            = read(address, struct.pointer, bytesToRead)
-
-    /**
-     * Reads at the specified native address into the specified struct.
-     *
-     * @param address The native address to read from.
-     * @param struct The struct to read into.
-     * @param bytesToRead The amount of bytes to read. (By default this is the size of the struct.)
-     */
-    fun read(address: Int, struct: Struct, bytesToRead: Int = struct.size())
-            = read(address.toLong(), struct, bytesToRead)
 
     /**
      * Reads at the specified native address into a memory.
@@ -290,26 +271,6 @@ interface Source {
      */
     fun write(address: Int, memory: Memory, bytesToWrite: Int = memory.size().toInt())
             = write(address.toLong(), memory, bytesToWrite)
-
-    /**
-     * Writes the specified struct to the specified native address.
-     *
-     * @param address The native address to write to.
-     * @param struct The struct to write.
-     * @param bytesToWrite The amount of bytes to write of the struct. (By default this is the size of the struct.)
-     */
-    fun write(address: Long, struct: Struct, bytesToWrite: Int = struct.size())
-            = write(address, struct.pointer, bytesToWrite)
-
-    /**
-     * Writes the specified struct to the specified native address.
-     *
-     * @param address The native address to write to.
-     * @param struct The struct to write.
-     * @param bytesToWrite The amount of bytes to write of the struct. (By default this is the size of the struct.)
-     */
-    fun write(address: Int, struct: Struct, bytesToWrite: Int = struct.size())
-            = write(address.toLong(), struct, bytesToWrite)
 
     /**
      * Writes at the specified native address to the specified byte value.

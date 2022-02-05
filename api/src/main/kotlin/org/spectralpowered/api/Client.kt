@@ -15,11 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.api
 
-import org.koin.dsl.module
-import org.spectralpowered.engine.game.RSClient
+object Client {
 
-val ENGINE_MODULE = module {
-    single { (address: Long) -> RSClient(address) }
+
 }
