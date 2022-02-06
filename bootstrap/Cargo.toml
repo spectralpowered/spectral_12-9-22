@@ -11,7 +11,6 @@ required-features = ["macros"]
 
 [dependencies]
 winapi = { version = "0.3.9", features = ["everything"] }
-tokio = { version = "1.15.0", features = ["full"] }
 mem = { git = "https://github.com/spectralpowered/mem-rs/", branch = "master" }
 log = "0.4.14"
 simple_logger = "2.1.0"
