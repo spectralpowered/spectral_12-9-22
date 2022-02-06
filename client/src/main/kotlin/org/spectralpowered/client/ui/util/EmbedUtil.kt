@@ -21,6 +21,7 @@ import com.sun.jna.Pointer
 import com.sun.jna.platform.win32.BaseTSD
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinUser.*
+import org.spectralpowered.api.Console
 import java.awt.Rectangle
 
 /**
@@ -40,6 +41,8 @@ fun embedOpenGL(
     spectralHwnd: WinDef.HWND,
     canvasHwnd: WinDef.HWND
 ) {
+    Console.info("Embedding Old School RuneScape OpenGL context into window.")
+
     jagWindowHwnd = jagHwnd
     spectralWindowHwnd = spectralHwnd
     jagOpenGlHwnd = User32.GetWindow(jagWindowHwnd, WinDef.DWORD(GW_CHILD.toLong()))

@@ -31,6 +31,7 @@ import com.sun.jna.platform.WindowUtils
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
 import com.sun.jna.platform.win32.WinUser.*
+import org.spectralpowered.api.Console
 import org.spectralpowered.client.ui.theme.SpectralTheme
 import org.spectralpowered.client.ui.util.embedOpenGL
 import org.spectralpowered.util.retry
@@ -54,7 +55,7 @@ class SpectralUI {
      * the Old School RuneScape Steam client attempts to be embedded into the program.
      */
     fun open() {
-        println("Opening Spectral UI.")
+        Console.info("Opening Spectral client UI.")
 
         /*
          * Install the Spectral Theme for window.

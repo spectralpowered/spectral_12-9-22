@@ -15,32 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.engine.rs
 
-import org.spectralpowered.natives.memory.Module
-import org.spectralpowered.natives.memory.Process
-import org.spectralpowered.natives.memory.processByName
-import org.spectralpowered.util.retry
+import com.sun.jna.Pointer
+import org.spectralpowered.engine.Offsets.fnConsoleRegisterCommand
+import org.spectralpowered.engine.Offsets.fnConsoleWrite
+import org.spectralpowered.engine.memory.deref
+import org.spectralpowered.engine.memory.toAddress
+import org.spectralpowered.engine.memory.vfunction
+import org.spectralpowered.engine.memory.vtable
+import org.spectralpowered.natives.memory.Addressed
 
-
-object Engine {
-
-    lateinit var process: Process private set
-    lateinit var module: Module private set
-
-    fun init() {
-        retry(128L) {
-            process = processByName("osclient.exe")!!
-        }
-
-        retry(128L) {
-            process.loadModules()
-            module = process.modules["osclient.exe"]!!
-        }
-
-        /*
-         * Scan and calculate all offset patterns.
-         */
-        Offsets.scan()
-    }
+class RSConsole(override val address: Long) : Addressed {
+    val toggle by vtable<Pointer>(13)
+    val write by vfunction<Pointer>(fnConsoleWrite)
 }

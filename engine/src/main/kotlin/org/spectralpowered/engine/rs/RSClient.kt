@@ -15,16 +15,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine.game
+package org.spectralpowered.engine.rs
 
+import org.spectralpowered.engine.Engine
 import org.spectralpowered.engine.Offsets.dwClient
 import org.spectralpowered.engine.Offsets.dwLoginState
-import org.spectralpowered.engine.util.*
+import org.spectralpowered.engine.memory.field
+import org.spectralpowered.engine.memory.get
+import org.spectralpowered.engine.memory.global
 import org.spectralpowered.natives.memory.Addressed
 
-open class RSClient(override val address: Long) : Addressed {
+object RSClient : Addressed {
+    override val address = Engine.module.address + dwClient
+
     var gameState: Int by field(0x1F98)
     var loginState: Int by global(dwLoginState)
 
-    companion object : RSClient(dwClient)
+    val console = RSConsole(this[0x587b18])
 }

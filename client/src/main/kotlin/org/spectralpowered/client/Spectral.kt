@@ -18,12 +18,14 @@
 package org.spectralpowered.client
 
 import org.koin.core.context.startKoin
+import org.spectralpowered.api.Console
 import org.spectralpowered.client.ui.SpectralUI
 import org.spectralpowered.common.SpectralPaths
 import org.spectralpowered.common.get
 import org.spectralpowered.common.inject
 import org.spectralpowered.engine.ENGINE_MODULE
 import org.spectralpowered.engine.Engine
+import org.spectralpowered.util.every
 import kotlin.system.exitProcess
 
 /**
@@ -39,8 +41,6 @@ class Spectral {
      * everything required for Spectral to work.
      */
     private fun start() {
-        println("Starting Spectral client.")
-
         /*
          * Start the Spectral engine. This handles the JVM low level integration with the
          * OSRS client memory and process.
@@ -48,9 +48,20 @@ class Spectral {
         Engine.init()
 
         /*
+         * Successfully initialized spectral client and attached to Old School
+         * RuneScape client's process memory.
+         */
+        Console.info("Successfully initialized Spectral client on process ID: ${Engine.process.id}.")
+
+        /*
          * Launch the Spectral UI.
          */
         ui.open()
+
+        /*
+         * Finished Spectral client startup.
+         */
+        Console.info("Spectral client has completed startup.")
     }
 
     /**

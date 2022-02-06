@@ -8,6 +8,8 @@ dependencies {
     implementation(project(":util"))
     implementation(project(":engine"))
     implementation(project(":natives"))
+    implementation(project(":api"))
+    implementation(project(":plugin"))
     implementation(compose.desktop.currentOs)
     implementation(compose.materialIconsExtended)
     implementation("com.formdev:flatlaf:_")

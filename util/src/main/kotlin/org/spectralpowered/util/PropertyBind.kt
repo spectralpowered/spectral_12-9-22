@@ -15,32 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.util
 
-import org.spectralpowered.natives.memory.Module
-import org.spectralpowered.natives.memory.Process
-import org.spectralpowered.natives.memory.processByName
-import org.spectralpowered.util.retry
+import kotlin.reflect.KMutableProperty0
+import kotlin.reflect.KProperty
 
-
-object Engine {
-
-    lateinit var process: Process private set
-    lateinit var module: Module private set
-
-    fun init() {
-        retry(128L) {
-            process = processByName("osclient.exe")!!
-        }
-
-        retry(128L) {
-            process.loadModules()
-            module = process.modules["osclient.exe"]!!
-        }
-
-        /*
-         * Scan and calculate all offset patterns.
-         */
-        Offsets.scan()
-    }
+class bind<T>(private val delegate: KMutableProperty0<T>) {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): T = delegate.get()
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) { delegate.set(value) }
 }

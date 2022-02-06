@@ -18,8 +18,6 @@
 package org.spectralpowered.engine
 
 import org.koin.dsl.module
-import org.spectralpowered.engine.game.RSClient
 
 val ENGINE_MODULE = module {
-    single { (address: Long) -> RSClient(address) }
 }

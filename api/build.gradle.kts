@@ -1,6 +1,7 @@
 dependencies {
     api(project(":common"))
     api(project(":util"))
-    implementation(project(":natives"))
-    implementation(project(":engine"))
+    api(project(":natives"))
+    api(project(":engine"))
+    api(project(":plugin"))
 }

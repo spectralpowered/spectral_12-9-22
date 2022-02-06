@@ -15,32 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine
+package org.spectralpowered.engine.memory
 
-import org.spectralpowered.natives.memory.Module
-import org.spectralpowered.natives.memory.Process
-import org.spectralpowered.natives.memory.processByName
-import org.spectralpowered.util.retry
+import com.sun.jna.Function
+import com.sun.jna.Pointer
+import kotlin.reflect.KClass
 
+class VirtualFunction<T>(
+    private val address: Long,
+    private val returnType: KClass<*>,
+    private val vtableAddress: Long
+) {
 
-object Engine {
+    private val function = Function.getFunction(Pointer(address))!!
 
-    lateinit var process: Process private set
-    lateinit var module: Module private set
-
-    fun init() {
-        retry(128L) {
-            process = processByName("osclient.exe")!!
-        }
-
-        retry(128L) {
-            process.loadModules()
-            module = process.modules["osclient.exe"]!!
-        }
-
-        /*
-         * Scan and calculate all offset patterns.
-         */
-        Offsets.scan()
+    @Suppress("UNCHECKED_CAST")
+    operator fun invoke(vararg args: Any?): T {
+        return function.invoke(returnType.java, arrayOf(Pointer(vtableAddress), *args)) as T
     }
+
 }

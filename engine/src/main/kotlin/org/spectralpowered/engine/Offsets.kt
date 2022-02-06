@@ -17,7 +17,6 @@
 
 package org.spectralpowered.engine
 
-import org.spectralpowered.common.get
 import org.spectralpowered.engine.Engine.module
 import org.spectralpowered.natives.offset.get
 import org.spectralpowered.natives.offset.invoke
@@ -35,23 +34,19 @@ object Offsets {
     /**
      * ===== FUNCTION OFFSETS =====
      */
-
+    val fnConsoleWrite by module(1)(0xE8, 0[4], 0x48, 0x8D, 0x15, 0[4], 0x48, 0x8B, 0xCB, 0xE8, 0[4], 0x48, 0x8B, 0x44, 0x24, 0x30)
+    val fnConsoleRegisterCommand by module(read = false)(0x48, 0x89, 0x5C, 0x24, 0x08, 0x48, 0x89, 0x74, 0x24, 0x10, 0x48, 0x89, 0x7C, 0x24, 0x18, 0x41, 0x56, 0x48, 0x83, 0xEC, 0[1], 0x49, 0x8B, 0xF8, 0x4C, 0x8B, 0xF1)
 
     fun scan() {
         val fields = this::class.memberProperties.toList()
         var resolvedCount = 0
 
-        println("Scanning for ${fields.size} pointer signatures...")
-
         fields.forEach { field ->
             val name = field.name
             val resolvedAddress = field.getter.call(this) as Long
             if(resolvedAddress != 0L) {
-                println("Resolved signature offset: [Name: $name, offset: 0x${resolvedAddress.toString(16)}].")
                 resolvedCount++
             }
         }
-
-        println("Successfully resolved $resolvedCount signature offsets.")
     }
 }
