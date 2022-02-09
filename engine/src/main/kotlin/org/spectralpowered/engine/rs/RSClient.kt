@@ -19,6 +19,7 @@ package org.spectralpowered.engine.rs
 
 import org.spectralpowered.engine.Engine
 import org.spectralpowered.engine.Offsets.dwClient
+import org.spectralpowered.engine.Offsets.dwConsole
 import org.spectralpowered.engine.Offsets.dwLoginState
 import org.spectralpowered.engine.memory.field
 import org.spectralpowered.engine.memory.get
@@ -31,5 +32,5 @@ object RSClient : Addressed {
     var gameState: Int by field(0x1F98)
     var loginState: Int by global(dwLoginState)
 
-    val console = RSConsole(this[0x587b18])
+    val console = RSConsole(this[0x587B50])
 }

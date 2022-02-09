@@ -1,10 +1,14 @@
 mod jvm_loader;
+mod sdk;
 
 use std::error::Error;
 use std::panic::catch_unwind;
 use std::thread;
 use simple_logger::SimpleLogger;
 use winapi::um::consoleapi::AllocConsole;
+use crate::sdk::osrs;
+
+#[link(name = "jvm")] extern "C" {}
 
 fn open_console() {
     unsafe { AllocConsole(); }
@@ -19,6 +23,11 @@ fn bootstrap() -> Result<(), Box<dyn Error>> {
      * Load the Spectral client via JVM.
      */
     jvm_loader::run()?;
+
+    /*
+     * Initialize the SDK
+     */
+    osrs::init();
 
     Ok(())
 }

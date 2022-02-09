@@ -17,6 +17,10 @@
 
 package org.spectralpowered.engine
 
+import com.sun.jna.Pointer
+import com.sun.jna.platform.win32.User32
+import com.sun.jna.platform.win32.WinNT
+import com.sun.jna.platform.win32.WinUser
 import org.spectralpowered.natives.memory.Module
 import org.spectralpowered.natives.memory.Process
 import org.spectralpowered.natives.memory.processByName
@@ -42,5 +46,15 @@ object Engine {
          * Scan and calculate all offset patterns.
          */
         Offsets.scan()
+
+        /*
+         * Run initial default setup actions on the attached process memory.
+         */
+        this.setup()
     }
+
+    private fun setup() {
+    }
+
+    external fun unhookJagWindow(dwHHOOK: Long)
 }
