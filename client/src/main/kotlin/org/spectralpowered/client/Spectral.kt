@@ -18,6 +18,7 @@
 package org.spectralpowered.client
 
 import org.koin.core.context.startKoin
+import org.spectralpowered.api.Client
 import org.spectralpowered.api.Console
 import org.spectralpowered.client.ui.SpectralUI
 import org.spectralpowered.common.SpectralPaths
@@ -62,6 +63,10 @@ class Spectral {
          * Finished Spectral client startup.
          */
         Console.info("Spectral client has completed startup.")
+
+        every(1000L) {
+            Console.debug("BaseX: ${Client.baseX}, BaseY: ${Client.baseY}")
+        }
     }
 
     /**

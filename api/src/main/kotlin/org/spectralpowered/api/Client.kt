@@ -18,7 +18,16 @@
 package org.spectralpowered.api
 
 import org.spectralpowered.engine.rs.RSClient
+import org.spectralpowered.util.bind
 
 object Client {
+
+    var gameState: Int by bind(RSClient::gameState)
+
+    var loginState: Int by bind(RSClient::loginState)
+
+    val baseX: Int by bind(RSClient::baseX)
+
+    var baseY: Int by bind(RSClient::baseY)
 
 }

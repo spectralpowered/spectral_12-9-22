@@ -32,5 +32,8 @@ object RSClient : Addressed {
     var gameState: Int by field(0x1F98)
     var loginState: Int by global(dwLoginState)
 
+    var baseX: Int by field(0xCD74)
+    var baseY: Int by field(0xCD78)
+
     val console = RSConsole(this[0x587B50])
 }
