@@ -65,7 +65,7 @@ class Spectral {
         Console.info("Spectral client has completed startup.")
 
         every(1000L) {
-            Console.debug("BaseX: ${Client.baseX}, BaseY: ${Client.baseY}")
+            Console.debug("Local [x: ${Client.localPlayer.x}, y: ${Client.localPlayer.y}, rotation: ${Client.localPlayer.rotation}]")
         }
     }
 

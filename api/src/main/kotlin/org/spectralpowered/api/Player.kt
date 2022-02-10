@@ -17,16 +17,14 @@
 
 package org.spectralpowered.api
 
-import org.spectralpowered.engine.rs.RSClient
-import org.spectralpowered.util.bind
+import org.spectralpowered.engine.rs.RSPlayer
 
-object Client {
+class Player internal constructor(private val wrapper: RSPlayer) {
 
-    var gameState: Int by bind(RSClient::gameState)
-    var loginState: Int by bind(RSClient::loginState)
+    val x: Int get() = wrapper.x
 
-    val baseX: Int by bind(RSClient::baseX)
-    var baseY: Int by bind(RSClient::baseY)
+    val y: Int get() = wrapper.y
 
-    val localPlayer get() = Player(RSClient.localPlayer)
+    val rotation: Int get() = wrapper.rotation
+
 }

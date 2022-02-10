@@ -19,7 +19,6 @@ package org.spectralpowered.engine.rs
 
 import org.spectralpowered.engine.Engine
 import org.spectralpowered.engine.Offsets.dwClient
-import org.spectralpowered.engine.Offsets.dwConsole
 import org.spectralpowered.engine.Offsets.dwLoginState
 import org.spectralpowered.engine.memory.field
 import org.spectralpowered.engine.memory.get
@@ -35,5 +34,9 @@ object RSClient : Addressed {
     var baseX: Int by field(0xCD74)
     var baseY: Int by field(0xCD78)
 
+    var renderSelf: Boolean by field(0xC959)
+
+    val localPlayer = RSPlayer(this[0xC948])
     val console = RSConsole(this[0x587B50])
+
 }
