@@ -15,20 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.api
+package org.spectralpowered.engine.sdk
 
-import org.spectralpowered.engine.sdk.RSClient
-import org.spectralpowered.util.bind
+import com.sun.jna.Pointer
+import org.spectralpowered.engine.Offsets.fnConsoleWrite
+import org.spectralpowered.engine.memory.vfunction
+import org.spectralpowered.engine.memory.vtable
+import org.spectralpowered.natives.memory.Addressed
 
-object Client {
-
-    var gameState: Int by bind(RSClient::gameState)
-
-    var loginState: Int by bind(RSClient::loginState)
-
-    val baseX: Int by bind(RSClient::baseX)
-
-    var baseY: Int by bind(RSClient::baseY)
-
-    val localPlayer get() = Player(RSClient.localPlayer)
+class RSConsole(override val address: Long) : Addressed {
+    val toggle by vtable<Pointer>(13)
+    val write by vfunction<Pointer>(fnConsoleWrite)
 }

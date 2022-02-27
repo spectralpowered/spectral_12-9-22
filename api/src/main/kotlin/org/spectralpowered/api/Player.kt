@@ -17,14 +17,8 @@
 
 package org.spectralpowered.api
 
-import org.spectralpowered.engine.rs.RSPlayer
+import org.spectralpowered.engine.sdk.RSPlayer
 
 class Player internal constructor(private val wrapper: RSPlayer) {
-
-    val x: Int get() = wrapper.x
-
-    val y: Int get() = wrapper.y
-
-    val rotation: Int get() = wrapper.rotation
 
 }

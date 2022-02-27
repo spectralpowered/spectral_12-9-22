@@ -25,6 +25,16 @@ tasks {
         into(dir)
     }
 
+    register<Copy>("installDll") {
+        val dir = project(":launcher").projectDir.resolve("src/main/resources/bin/")
+        doFirst {
+            dir.resolve("bootstrap.dll").deleteRecursively()
+        }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        from(projectDir.resolve("target/release/bootstrap.dll"))
+        into(dir)
+    }
+
     register("downloadJre") {
         val jreUrl = URL("https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.2%2B8/OpenJDK17U-jre_x64_windows_hotspot_17.0.2_8.zip")
         val rootFolderName = "jdk-17.0.2+8-jre"

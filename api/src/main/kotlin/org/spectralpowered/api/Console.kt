@@ -17,7 +17,7 @@
 
 package org.spectralpowered.api
 
-import org.spectralpowered.engine.rs.RSClient
+import org.spectralpowered.engine.sdk.RSClient
 
 object Console {
 

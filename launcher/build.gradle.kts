@@ -1,6 +1,7 @@
 plugins {
     application
     id("fr.stardustenterprises.rust.importer")
+    id("org.spectralpowered.gradle.plugin.update4j")
 }
 
 dependencies {
@@ -16,6 +17,13 @@ application {
     mainClass.set("org.spectralpowered.launcher.Launcher")
     mainClassName = "org.spectralpowered.launcher.Launcher"
     applicationName = "Spectral"
+}
+
+update4j {
+    uri = "https://spectral.nyc3.digitaloceanspaces.com/client/live/"
+    path = File(System.getProperty("user.home")).resolve(".spectral/").absolutePath
+    output = "update4j/manifest.xml"
+    file = "name=bin/spectral.jar"
 }
 
 tasks {

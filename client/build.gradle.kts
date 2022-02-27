@@ -22,6 +22,9 @@ tasks {
         archiveVersion.set("")
         archiveClassifier.set("")
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        manifest {
+            attributes["Main-Class"] = "my.main.class"
+        }
         from(configurations.runtimeClasspath.get().map {
             if (it.isDirectory) it
             else zipTree(it)

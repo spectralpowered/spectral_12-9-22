@@ -15,18 +15,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine.rs
+package org.spectralpowered.api
 
-import com.sun.jna.Pointer
-import org.spectralpowered.engine.Offsets.fnConsoleRegisterCommand
-import org.spectralpowered.engine.Offsets.fnConsoleWrite
-import org.spectralpowered.engine.memory.deref
-import org.spectralpowered.engine.memory.toAddress
-import org.spectralpowered.engine.memory.vfunction
-import org.spectralpowered.engine.memory.vtable
-import org.spectralpowered.natives.memory.Addressed
+sealed class Coordinate {
 
-class RSConsole(override val address: Long) : Addressed {
-    val toggle by vtable<Pointer>(13)
-    val write by vfunction<Pointer>(fnConsoleWrite)
+    abstract val x: Int
+    abstract val y: Int
+
+    data class Local(
+        override val x: Int,
+        override val y: Int
+    ) : Coordinate() {
+
+    }
+
+
+    data class Scene(
+        override val x: Int,
+        override val y: Int
+    ) : Coordinate() {
+
+    }
+
+   data class World(
+        override val x: Int,
+        override val y: Int
+    ) : Coordinate() {
+
+    }
 }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.engine.rs
+package org.spectralpowered.engine.sdk
 
 import org.spectralpowered.engine.memory.field
 import org.spectralpowered.natives.memory.Addressed

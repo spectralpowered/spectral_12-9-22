@@ -15,20 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.spectralpowered.api
+package org.spectralpowered.gradle.plugin.update4j
 
-import org.spectralpowered.engine.sdk.RSClient
-import org.spectralpowered.util.bind
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.create
 
-object Client {
+open class Update4jPlugin : Plugin<Project> {
 
-    var gameState: Int by bind(RSClient::gameState)
-
-    var loginState: Int by bind(RSClient::loginState)
-
-    val baseX: Int by bind(RSClient::baseX)
-
-    var baseY: Int by bind(RSClient::baseY)
-
-    val localPlayer get() = Player(RSClient.localPlayer)
+    override fun apply(project: Project) {
+        project.extensions.create<Update4jGradleExtension>("update4j", project)
+        project.tasks.create<GenerateConfigurationFileTask>("createUpdate4jConfig")
+    }
 }
