@@ -59,7 +59,7 @@ object Launcher {
          */
         checkDirs()
         JreDownloader.run()
-        Updater.run()
+        BinaryFileDownloader.run()
     }
 
     /**

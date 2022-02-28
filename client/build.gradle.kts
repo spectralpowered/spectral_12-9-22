@@ -1,5 +1,4 @@
 plugins {
-    id("org.jetbrains.compose")
     `java-library`
 }
 
@@ -10,8 +9,6 @@ dependencies {
     implementation(project(":natives"))
     implementation(project(":api"))
     implementation(project(":plugin"))
-    implementation(compose.desktop.currentOs)
-    implementation(compose.materialIconsExtended)
     implementation("com.formdev:flatlaf:_")
     implementation("com.formdev:flatlaf-intellij-themes:_")
 }

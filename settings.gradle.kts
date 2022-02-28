@@ -24,6 +24,7 @@ refreshVersions {
 rootProject.name = "spectral"
 
 include(":launcher")
+include(":launcher:updater")
 include(":common")
 include(":util")
 include(":bootstrap")
